@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark" data-lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSGVO-Compliance — BRANI+ Digitale Lösungen</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+:root{--accent:#8B5CF6;--accentr:139,92,246}
+.law-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.law-card{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:28px;transition:all .3s}
+.law-card:hover{background:var(--sh);border-color:rgba(var(--accentr),.25);transform:translateY(-3px)}
+.law-num{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.law-title{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
+.law-desc{font-size:13px;color:var(--t2);line-height:1.65}
+.law-art{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(var(--accentr),.1);border:1px solid rgba(var(--accentr),.2);color:var(--accent);padding:3px 9px;border-radius:100px;margin-top:12px}
+.tom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.tom-item{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:22px 24px;display:flex;align-items:flex-start;gap:14px;transition:all .3s}
+.tom-item:hover{background:var(--sh);border-color:rgba(var(--accentr),.2)}
+.tom-num{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);flex-shrink:0;width:32px;padding-top:2px}
+.tom-text h4{font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.tom-text p{font-size:13px;color:var(--t2);line-height:1.6}
+@media(max-width:1100px){.law-grid{grid-template-columns:1fr}.tom-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo-link" href="../preview-v2.html"><img src="../logo_transparent.png" alt="BRANI+" onerror="this.style.display='none'"></a>
+  <a class="back-btn" href="../preview-v2.html">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    <span class="de">Zurück</span><span class="en">Back</span>
+  </a>
+  <div class="nav-end">
+    <button class="ni" onclick="toggleLang()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span id="langBtn">EN</span></button>
+    <button class="ni" onclick="toggleTheme()"><svg id="themeIco" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+  </div>
+</nav>
+
+<div class="lp-hero">
+  <div class="lp-hero-bg"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="lp-eyebrow r"><span></span><span class="de">DSGVO-Compliance</span><span class="en">GDPR Compliance</span></div>
+      <h1 class="lp-h1 r d1">
+        <span class="de">DSGVO vollständig<br><span class="grad">umgesetzt. Sicher.</span></span>
+        <span class="en">GDPR fully<br><span class="grad">implemented. Secure.</span></span>
+      </h1>
+      <p class="lp-lead r d2">
+        <span class="de">Patientendaten sind das sensibelste Gut Ihrer Praxis. Ein Datenleck kostet bis zu 20 Millionen Euro Strafe — und Jahrzehnte an Patientenvertrauen. BRANI+ macht Ihre Praxis vollständig DSGVO-konform. Technisch korrekt. Rechtssicher. Dauerhaft dokumentiert.</span>
+        <span class="en">Patient data is your practice's most sensitive asset. A data breach costs up to 20 million euros in fines — and decades of patient trust. BRANI+ makes your practice fully GDPR-compliant. Technically correct. Legally secure. Permanently documented.</span>
+      </p>
+      <a href="mailto:ciricb1998@gmail.com" class="lp-cta r d3">
+        <span class="de">Kostenloses DSGVO-Audit →</span>
+        <span class="en">Free GDPR audit →</span>
+      </a>
+    </div>
+    <div class="hero-visual r d2">
+      <div class="hero-icon-big">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <circle cx="12" cy="14" r="3"/>
+          <path d="M10.5 12.8l1.2 1.2 2.5-2.5" stroke-width="1.4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="eyebrow r"><span></span><span class="de">Gesetzliche Pflichten</span><span class="en">Legal obligations</span></div>
+  <h2 class="h2 r d1">
+    <span class="de">Was Arztpraxen verpflichtend<br>umsetzen müssen.</span>
+    <span class="en">What medical practices must<br>mandatorily implement.</span>
+  </h2>
+  <p class="lead r d2">
+    <span class="de">Die DSGVO gilt seit 2018. Arztpraxen verarbeiten täglich Gesundheitsdaten nach Art. 9 DSGVO — die sensibelste Datenkategorie mit den höchsten Schutzpflichten und härtesten Strafen.</span>
+    <span class="en">The GDPR has been in force since 2018. Medical practices process health data daily under Art. 9 GDPR — the most sensitive data category with the highest protection obligations and harshest penalties.</span>
+  </p>
+  <div class="law-grid">
+    <div class="law-card r d1">
+      <div class="law-num">Pflicht 01</div>
+      <h3 class="law-title de">Datenschutzerklärung</h3><h3 class="law-title en">Privacy policy</h3>
+      <p class="law-desc de">Klare Information für Patienten welche Daten warum erhoben werden. Muss aktuell, vollständig und rechtskonform formuliert sein. Veraltet = Bußgeld.</p>
+      <p class="law-desc en">Clear information for patients about what data is collected and why. Must be current, complete and legally compliant. Outdated = fine.</p>
+      <span class="law-art">Art. 13–14 DSGVO</span>
+    </div>
+    <div class="law-card r d2">
+      <div class="law-num">Pflicht 02</div>
+      <h3 class="law-title de">Verarbeitungsverzeichnis (VVT)</h3><h3 class="law-title en">Records of processing (RoPA)</h3>
+      <p class="law-desc de">Dokumentation aller Datenverarbeitungsvorgänge. Wer verarbeitet was, warum und wie lange. Bei Kontrolle sofort vorzulegen.</p>
+      <p class="law-desc en">Documentation of all data processing activities. Who processes what, why and for how long. Must be presented immediately upon inspection.</p>
+      <span class="law-art">Art. 30 DSGVO</span>
+    </div>
+    <div class="law-card r d3">
+      <div class="law-num">Pflicht 03</div>
+      <h3 class="law-title de">Technische und Org. Maßnahmen (TOM)</h3><h3 class="law-title en">Technical and Org. Measures (TOM)</h3>
+      <p class="law-desc de">Nachweis aller Sicherheitsmaßnahmen — Verschlüsselung, Zugriffsschutz, Backup, Pseudonymisierung. Vollständig dokumentiert und aktuell.</p>
+      <p class="law-desc en">Proof of all security measures — encryption, access protection, backup, pseudonymisation. Fully documented and current.</p>
+      <span class="law-art">Art. 32 DSGVO</span>
+    </div>
+    <div class="law-card r">
+      <div class="law-num">Pflicht 04</div>
+      <h3 class="law-title de">Auftragsverarbeitungsverträge (AVV)</h3><h3 class="law-title en">Data processing agreements (DPA)</h3>
+      <p class="law-desc de">Mit jedem Dienstleister der Patientendaten berührt — Praxissoftware, Cloud, IT-Partner — muss ein schriftlicher AVV geschlossen sein.</p>
+      <p class="law-desc en">A written DPA must be in place with every service provider that touches patient data — practice software, cloud, IT partner.</p>
+      <span class="law-art">Art. 28 DSGVO</span>
+    </div>
+    <div class="law-card r d1">
+      <div class="law-num">Pflicht 05</div>
+      <h3 class="law-title de">Datenschutz-Folgenabschätzung (DSFA)</h3><h3 class="law-title en">Data protection impact assessment</h3>
+      <p class="law-desc de">Bei KI-Systemen, neuer Diagnosesoftware oder besonders riskanten Verarbeitungen muss vorab eine Risikoabschätzung erstellt werden.</p>
+      <p class="law-desc en">For AI systems, new diagnostic software or particularly risky processing, a risk assessment must be prepared in advance.</p>
+      <span class="law-art">Art. 35 DSGVO</span>
+    </div>
+    <div class="law-card r d2">
+      <div class="law-num">Pflicht 06</div>
+      <h3 class="law-title de">Meldepflicht bei Datenpannen</h3><h3 class="law-title en">Data breach notification duty</h3>
+      <p class="law-desc de">Datenschutzverletzungen müssen innerhalb 72 Stunden der Behörde gemeldet werden. Ohne klaren Prozess ist das unmöglich einzuhalten.</p>
+      <p class="law-desc en">Data breaches must be reported to the authority within 72 hours. Without a clear process this is impossible to meet.</p>
+      <span class="law-art">Art. 33–34 DSGVO</span>
+    </div>
+  </div>
+</div>
+
+<div class="process-bg">
+  <div class="process-inner">
+    <div class="eyebrow r"><span></span><span class="de">Digitale Archivierung</span><span class="en">Digital archiving</span></div>
+    <h2 class="h2 r d1">
+      <span class="de">Gesetzeskonforme Archivierung<br>für Ihre Patientendaten.</span>
+      <span class="en">Legally compliant archiving<br>for your patient data.</span>
+    </h2>
+    <p class="lead r d2" style="max-width:720px;margin-bottom:0">
+      <span class="de">Patientenakten 10 Jahre. Röntgenbilder 10 Jahre. Abrechnungen 10 Jahre. Kühlschranktemperaturen im Labor 5 Jahre. Das Gesetz ist klar — Papier ist kein sicheres Archivierungssystem. BRANI+ digitalisiert, strukturiert und sichert Ihre gesamten Praxisunterlagen DSGVO-konform.</span>
+      <span class="en">Patient records 10 years. X-rays 10 years. Billing documents 10 years. Refrigerator temperatures in the lab 5 years. The law is clear — paper is not a secure archiving system. BRANI+ digitises, structures and secures all your practice documents in a GDPR-compliant manner.</span>
+    </p>
+    <div class="process-steps" style="margin-top:48px">
+      <div class="pstep r"><div class="pstep-num">01</div><h4 class="pstep-title de">Inventur</h4><h4 class="pstep-title en">Inventory</h4><p class="pstep-desc de">Erfassung aller Dokumente und Datenbestände — physisch und digital. Aufbewahrungsfristen werden gemeinsam definiert.</p><p class="pstep-desc en">Recording all documents and data — physical and digital. Retention periods are defined together.</p></div>
+      <div class="pstep r d1"><div class="pstep-num">02</div><h4 class="pstep-title de">Digitalisierung</h4><h4 class="pstep-title en">Digitisation</h4><p class="pstep-desc de">Scannen und strukturierte Ablage. OCR für volle Durchsuchbarkeit. Verschlüsselt gespeichert. Sofort abrufbar.</p><p class="pstep-desc en">Scanning and structured filing. OCR for full searchability. Stored encrypted. Instantly retrievable.</p></div>
+      <div class="pstep r d2"><div class="pstep-num">03</div><h4 class="pstep-title de">Zugangsschutz</h4><h4 class="pstep-title en">Access control</h4><p class="pstep-desc de">Rollenbasierter Zugriff mit vollständigem Protokoll. Nur berechtigte Personen sehen was sie sehen dürfen.</p><p class="pstep-desc en">Role-based access with complete log. Only authorised persons see what they are allowed to see.</p></div>
+      <div class="pstep r d3"><div class="pstep-num">04</div><h4 class="pstep-title de">Automatische Löschung</h4><h4 class="pstep-title en">Automatic deletion</h4><p class="pstep-desc de">Nach Ablauf der Fristen werden Daten automatisch zur Löschung markiert. Kein manueller Aufwand. Keine Fristversäumnisse.</p><p class="pstep-desc en">After expiry of deadlines, data is automatically marked for deletion. No manual effort. No missed deadlines.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="eyebrow r"><span></span><span class="de">TOM — Was wir implementieren</span><span class="en">TOM — What we implement</span></div>
+  <h2 class="h2 r d1">
+    <span class="de">Alle technischen und organisatorischen<br>Maßnahmen vollständig.</span>
+    <span class="en">All technical and organisational<br>measures complete.</span>
+  </h2>
+  <p class="lead r d2">
+    <span class="de">Art. 32 DSGVO fordert angemessene technische und organisatorische Maßnahmen. BRANI+ implementiert alle — und dokumentiert jeden einzelnen Schritt für Ihren Nachweis bei Audits.</span>
+    <span class="en">Art. 32 GDPR requires appropriate technical and organisational measures. BRANI+ implements all of them — and documents every single step for your audit evidence.</span>
+  </p>
+  <div class="tom-grid">
+    <div class="tom-item r d1"><div class="tom-num">T-01</div><div class="tom-text"><h4 class="de">Zutrittskontrolle</h4><h4 class="en">Physical access control</h4><p class="de">Kein Unbefugter betritt Bereiche mit Patientendaten. Schlüsselsysteme, elektronische Zutrittsprotokolle, Besucherregistrierung.</p><p class="en">No unauthorised person enters areas with patient data. Key systems, electronic access logs, visitor registration.</p></div></div>
+    <div class="tom-item r d2"><div class="tom-num">T-02</div><div class="tom-text"><h4 class="de">Zugangskontrolle</h4><h4 class="en">Digital access control</h4><p class="de">Passwortschutz nach BSI-Standard, Zwei-Faktor-Authentifizierung, automatische Bildschirmsperren nach 5 Minuten.</p><p class="en">Password protection to BSI standard, two-factor authentication, automatic screen locks after 5 minutes.</p></div></div>
+    <div class="tom-item r"><div class="tom-num">T-03</div><div class="tom-text"><h4 class="de">Zugriffskontrolle (Berechtigungen)</h4><h4 class="en">Data access control</h4><p class="de">Minimalprinzip: Jeder sieht nur was er für seine Arbeit braucht. Vollständiges Protokoll jedes Datenzugriffs. Rollenmodell dokumentiert.</p><p class="en">Minimum principle: everyone sees only what they need for their work. Complete log of every data access. Role model documented.</p></div></div>
+    <div class="tom-item r d1"><div class="tom-num">T-04</div><div class="tom-text"><h4 class="de">Verschlüsselung</h4><h4 class="en">Encryption</h4><p class="de">AES-256 für gespeicherte Daten. TLS 1.3 für alle Übertragungen. Festplattenverschlüsselung auf allen Geräten.</p><p class="en">AES-256 for stored data. TLS 1.3 for all transmissions. Full disk encryption on all devices.</p></div></div>
+    <div class="tom-item r d2"><div class="tom-num">T-05</div><div class="tom-text"><h4 class="de">Pseudonymisierung</h4><h4 class="en">Pseudonymisation</h4><p class="de">Wo technisch möglich werden Patientendaten pseudonymisiert. Risikominimierung im Fall eines Datenlecks — weniger Schaden, geringere Strafe.</p><p class="en">Where technically possible, patient data is pseudonymised. Risk minimisation in the event of a data breach — less damage, lower penalty.</p></div></div>
+    <div class="tom-item r"><div class="tom-num">T-06</div><div class="tom-text"><h4 class="de">Backup und Wiederherstellung</h4><h4 class="en">Backup and recovery</h4><p class="de">3-2-1-Backup-Prinzip: 3 Kopien, 2 Medien, 1 Offsite. Monatliche Wiederherstellungstests. Keine Daten gehen verloren.</p><p class="en">3-2-1 backup principle: 3 copies, 2 media, 1 offsite. Monthly recovery tests. No data is lost.</p></div></div>
+    <div class="tom-item r d1"><div class="tom-num">O-01</div><div class="tom-text"><h4 class="de">Mitarbeiterschulung</h4><h4 class="en">Staff training</h4><p class="de">Jährliche DSGVO-Schulung für alle Mitarbeiter. Zertifiziert und dokumentiert. Nachweis bei Kontrolle sofort abrufbar.</p><p class="en">Annual GDPR training for all staff. Certified and documented. Proof immediately available upon inspection.</p></div></div>
+    <div class="tom-item r d2"><div class="tom-num">O-02</div><div class="tom-text"><h4 class="de">Notfallplan bei Datenpannen</h4><h4 class="en">Data breach emergency plan</h4><p class="de">Klarer 5-Schritte-Plan: Erkennung, Eindämmung, Bewertung, Meldung, Dokumentation — alles innerhalb 72 Stunden.</p><p class="en">Clear 5-step plan: detection, containment, assessment, notification, documentation — all within 72 hours.</p></div></div>
+  </div>
+</div>
+
+<div class="cta-bg">
+  <div class="cta-inner">
+    <div class="eyebrow r" style="justify-content:center"><span></span><span class="de">Jetzt prüfen lassen</span><span class="en">Get checked now</span><span></span></div>
+    <h2 class="cta-h2 r d1">
+      <span class="de">Wann haben Sie zuletzt Ihr DSGVO-Setup geprüft?</span>
+      <span class="en">When did you last check your GDPR setup?</span>
+    </h2>
+    <p class="cta-sub r d2">
+      <span class="de">Kostenloses DSGVO-Audit in 45 Minuten. Kein Vertrag. Klares Ergebnis was fehlt und was gut ist.</span>
+      <span class="en">Free GDPR audit in 45 minutes. No contract. Clear result on what's missing and what's good.</span>
+    </p>
+    <div class="cta-btns r d3">
+      <a href="mailto:ciricb1998@gmail.com" class="lp-cta de">Kostenloses DSGVO-Audit →</a>
+      <a href="mailto:ciricb1998@gmail.com" class="lp-cta en">Free GDPR audit →</a>
+      <a href="../preview-v2.html" class="btn-ghost de">Alle Leistungen</a>
+      <a href="../preview-v2.html" class="btn-ghost en">All services</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="footer-inner">
+  <span class="footer-logo-wrap"><img src="../logo_transparent.png" class="footer-logo" alt="BRANI+" onerror="this.parentElement.style.display='none'"></span>
+  <p class="footer-copy de">© 2026 BRANI+ Digitale Lösungen</p>
+  <p class="footer-copy en">© 2026 BRANI+ Digital Solutions</p>
+</div></footer>
+<script src="_shared.js"></script>
+</body>
+</html>

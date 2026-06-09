@@ -1,0 +1,50 @@
+// ── Brand configurations ──────────────────────────────────────────────────────
+export const BRANDS = {
+  branip: {
+    id: 'branip',
+    name: 'BRANI+',
+    fullName: 'BRANI+ Digitale Lösungen',
+    tagline: 'DIGITAL · SOLUTIONS · EXCELLENCE',
+    primary: '#2563EB',
+    primaryDim: 'rgba(37,99,235,0.12)',
+    primaryGlow: 'rgba(37,99,235,0.08)',
+    accent: '#94A3B8',
+    accentDim: 'rgba(148,163,184,0.12)',
+    cardBg: 'rgba(37,99,235,0.04)',
+    cardBorder: 'rgba(37,99,235,0.12)',
+    iconBg: 'rgba(37,99,235,0.15)',
+    badge: '#60A5FA',
+  },
+  brani: {
+    id: 'brani',
+    name: 'BRANI',
+    fullName: 'BRANI Personal Brand',
+    tagline: 'DISCIPLINE · DOCUMENT · DELIVER',
+    primary: '#F97316',
+    primaryDim: 'rgba(249,115,22,0.14)',
+    primaryGlow: 'rgba(249,115,22,0.1)',
+    accent: '#EA580C',
+    accentDim: 'rgba(234,88,12,0.15)',
+    cardBg: 'rgba(249,115,22,0.04)',
+    cardBorder: 'rgba(249,115,22,0.12)',
+    iconBg: 'rgba(249,115,22,0.15)',
+    badge: '#FB923C',
+  },
+  log: {
+    id: 'log',
+    name: 'LOG',
+    fullName: 'LOG — Ledger of Growth',
+    tagline: 'TRACK · GROW · COMPOUND',
+    primary: '#A855F7',
+    primaryDim: 'rgba(168,85,247,0.12)',
+    primaryGlow: 'rgba(168,85,247,0.06)',
+    accent: '#7C3AED',
+    accentDim: 'rgba(124,58,237,0.15)',
+    cardBg: 'rgba(168,85,247,0.04)',
+    cardBorder: 'rgba(168,85,247,0.12)',
+    iconBg: 'rgba(124,58,237,0.20)',
+    badge: '#C084FC',
+  }
+}
+
+export const DEFAULT_BRAND = 'brani'

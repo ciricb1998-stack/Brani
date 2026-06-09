@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark" data-lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRANI+ Digitale Lösungen — IT & Digitalisierung für Arztpraxen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:       #03030A;
+  --bg2:      #07071A;
+  --bg3:      #0B0B28;
+  --s:        rgba(255,255,255,0.032);
+  --sh:       rgba(255,255,255,0.066);
+  --b:        rgba(255,255,255,0.075);
+  --bh:       rgba(255,255,255,0.17);
+  --t:        #EEF2FF;
+  --t2:       rgba(238,242,255,0.55);
+  --t3:       rgba(238,242,255,0.27);
+  --a:        #1A70F0;
+  --a2:       #10B981;
+  --a3:       #8B5CF6;
+  --danger:   #EF4444;
+  --ar:       26,112,240;
+  --a2r:      16,185,129;
+  --a3r:      139,92,246;
+  --dr:       239,68,68;
+  --nav:      rgba(3,3,10,0.82);
+  --ease:     cubic-bezier(0.23,1,0.32,1);
+}
+[data-theme="light"] {
+  --bg:  #FFFFFF; --bg2: #F0F4FF; --bg3: #E6EDFF;
+  --s:   rgba(26,112,240,0.04); --sh: rgba(26,112,240,0.09);
+  --b:   rgba(0,0,0,0.07);      --bh: rgba(26,112,240,0.22);
+  --t:   #060618; --t2: rgba(6,6,24,0.55); --t3: rgba(6,6,24,0.3);
+  --nav: rgba(255,255,255,0.9);
+}
+[data-lang="de"] .en { display:none!important; }
+[data-lang="en"] .de { display:none!important; }
+
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--t);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s var(--ease),color .5s var(--ease);
+  cursor:none!important;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.016;
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--b);border-radius:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+*{cursor:none!important}
+#cc{
+  position:fixed;top:0;left:0;
+  width:20px;height:24px;
+  pointer-events:none;z-index:10001;
+  will-change:transform;
+  filter:drop-shadow(0 2px 8px rgba(26,112,240,.65)) drop-shadow(0 0 3px rgba(255,255,255,.3));
+  opacity:0;
+}
+#cc svg{width:100%;height:100%;display:block}
+@media(pointer:coarse){#cc{display:none}*{cursor:auto!important}}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:74px;padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--nav);
+  backdrop-filter:blur(28px) saturate(2);
+  -webkit-backdrop-filter:blur(28px) saturate(2);
+  border-bottom:1px solid var(--b);
+  transition:all .4s var(--ease);
+}
+.logo-img-wrap{
+  display:flex;align-items:center;
+  cursor:pointer;text-decoration:none;
+  transition:opacity .2s;
+}
+.logo-img-wrap:hover{opacity:.8}
+.logo-img-wrap img{
+  height:52px;width:auto;object-fit:contain;display:block;
+  image-rendering:-webkit-optimize-contrast;
+  filter:
+    drop-shadow(0 0 10px rgba(26,112,240,.55))
+    drop-shadow(0 2px 14px rgba(0,0,0,.75))
+    brightness(1.08)
+    contrast(1.08)
+    saturate(1.1);
+  transition:filter .3s;
+}
+[data-theme="light"] .logo-img-wrap img{
+  filter:
+    brightness(0.68)
+    contrast(1.25)
+    saturate(1.1)
+    drop-shadow(0 1px 4px rgba(0,0,0,.12))
+    drop-shadow(0 0 10px rgba(26,112,240,.2));
+}
+.logo-img-wrap:hover img{
+  filter:
+    drop-shadow(0 0 18px rgba(26,112,240,.75))
+    drop-shadow(0 0 8px rgba(26,112,240,.45))
+    brightness(1.15)
+    contrast(1.08)
+    saturate(1.15);
+}
+[data-theme="light"] .logo-img-wrap:hover img{
+  filter:
+    brightness(0.42)
+    contrast(1.6)
+    saturate(1.2)
+    drop-shadow(0 0 18px rgba(26,112,240,.45));
+}
+
+.nav-links{list-style:none;display:flex;align-items:center;gap:4px}
+.nav-links a{
+  text-decoration:none;color:var(--t2);font-size:14px;font-weight:500;
+  padding:8px 15px;border-radius:10px;transition:all .2s;cursor:pointer;
+}
+.nav-links a:hover{color:var(--t);background:var(--s)}
+.nav-end{display:flex;align-items:center;gap:9px}
+.ni{
+  background:var(--s);border:1px solid var(--b);border-radius:10px;
+  color:var(--t2);font-size:13px;font-weight:600;
+  padding:7px 13px;cursor:pointer;transition:all .2s;font-family:inherit;
+  display:flex;align-items:center;gap:6px;
+}
+.ni:hover{background:var(--sh);color:var(--t);border-color:var(--bh)}
+.ni svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-cta{
+  background:var(--danger);color:#fff;border:none;border-radius:10px;
+  font-size:13px;font-weight:700;padding:9px 18px;cursor:pointer;
+  font-family:inherit;text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  animation:urgentPulse 3s ease-in-out infinite;
+  transition:all .25s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(var(--dr),.45);animation:none}
+@keyframes urgentPulse{0%,100%{box-shadow:0 0 0 0 rgba(var(--dr),.5)}50%{box-shadow:0 0 0 8px rgba(var(--dr),0)}}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:100px 48px 80px;
+  position:relative;overflow:hidden;
+}
+#canvas{position:absolute;inset:0;z-index:0}
+
+.hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+
+@keyframes logoEntrance{
+  0%{opacity:0;transform:scale(.7) translateY(30px) rotateX(20deg)}
+  60%{opacity:1;transform:scale(1.04) translateY(-4px) rotateX(-2deg)}
+  100%{opacity:1;transform:scale(1) translateY(0) rotateX(0)}
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(var(--dr),.1);border:1px solid rgba(var(--dr),.25);
+  border-radius:100px;padding:7px 16px 7px 10px;
+  font-size:12px;font-weight:700;color:#FCA5A5;
+  margin-bottom:28px;letter-spacing:.02em;text-transform:uppercase;
+  animation:badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse{0%,100%{border-color:rgba(var(--dr),.25)}50%{border-color:rgba(var(--dr),.6)}}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--danger);box-shadow:0 0 10px var(--danger);animation:blink 1.8s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-h1{
+  font-size:clamp(44px,7.5vw,104px);font-weight:900;
+  line-height:1.0;letter-spacing:-.045em;margin-bottom:24px;
+}
+.hero-static{display:block;color:var(--t)}
+.hero-dynamic{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--a) 0%,var(--a3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  min-width:10px;
+}
+.cursor-blink{
+  display:inline-block;width:3px;height:.85em;
+  background:var(--a);margin-left:4px;vertical-align:-.05em;
+  animation:curBlink .85s step-end infinite;
+}
+@keyframes curBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-sub{
+  font-size:clamp(16px,1.8vw,20px);color:var(--t2);
+  line-height:1.75;max-width:600px;margin:0 auto 36px;
+}
+.hero-sub strong{color:var(--t);font-weight:600}
+
+/* Attack counter */
+.attack-counter{
+  display:inline-flex;align-items:center;gap:12px;
+  background:rgba(var(--dr),.08);border:1px solid rgba(var(--dr),.2);
+  border-radius:14px;padding:14px 22px;margin-bottom:36px;
+  font-size:14px;font-weight:500;color:var(--t2);
+  max-width:100%;
+}
+.ac-num{
+  font-size:28px;font-weight:900;letter-spacing:-.04em;
+  color:var(--danger);font-variant-numeric:tabular-nums;
+  min-width:2ch;
+}
+.ac-label{text-align:left;font-size:12px;line-height:1.4}
+.ac-label strong{display:block;color:var(--t);font-size:13px;font-weight:700}
+
+.hero-ctas{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:none;border-radius:14px;font-family:inherit;
+  font-weight:600;cursor:pointer;text-decoration:none;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.btn:hover::after{opacity:1}
+.btn-blue{background:var(--a);color:#fff;font-size:16px;padding:16px 34px}
+.btn-blue:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(var(--ar),.42)}
+.btn-green{background:var(--a2);color:#fff;font-size:16px;padding:16px 34px}
+.btn-green:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(var(--a2r),.42)}
+.btn-ghost{
+  background:var(--s);color:var(--t);
+  border:1px solid var(--b);font-size:16px;padding:16px 34px;
+}
+.btn-ghost:hover{background:var(--sh);border-color:var(--bh);transform:translateY(-2px)}
+.btn-sm{font-size:14px;padding:11px 22px;border-radius:10px}
+
+/* Magnetic effect wrapper */
+.magnetic{display:inline-block;transition:transform .4s var(--ease)}
+
+/* ═══════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════ */
+.ticker{
+  background:rgba(var(--dr),.07);border-top:1px solid rgba(var(--dr),.15);
+  border-bottom:1px solid rgba(var(--dr),.15);
+  padding:12px 0;overflow:hidden;
+}
+.ticker-track{
+  display:flex;gap:48px;
+  animation:tickerScroll 30s linear infinite;
+  width:max-content;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:700;color:#FCA5A5;
+  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+}
+.ticker-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--danger);flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════════════ */
+.sec{padding:120px 80px;max-width:1360px;margin:0 auto}
+.sec-full{max-width:100%!important;padding:120px 80px}
+.container{max-width:1360px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--a);margin-bottom:20px;
+}
+.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--a);flex-shrink:0}
+.eyebrow.green{color:var(--a2)}
+.eyebrow.green::before{background:var(--a2)}
+.h2{
+  font-size:clamp(32px,4.5vw,62px);font-weight:800;
+  line-height:1.08;letter-spacing:-.035em;margin-bottom:20px;
+}
+.lead{font-size:17px;color:var(--t2);line-height:1.75;max-width:520px}
+
+/* ═══════════════════════════════════════════
+   PAIN SECTION
+═══════════════════════════════════════════ */
+.pain-bg{background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.pain-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:20px;margin-top:56px;
+}
+.pain-card{
+  background:rgba(var(--dr),.06);border:1px solid rgba(var(--dr),.15);
+  border-radius:24px;padding:36px;position:relative;overflow:hidden;
+  transition:all .4s var(--ease);cursor:default;
+}
+.pain-card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(var(--dr),.12),transparent 70%);
+}
+.pain-card:hover{border-color:rgba(var(--dr),.3);transform:translateY(-3px)}
+.pain-num{
+  font-size:clamp(32px,4vw,52px);font-weight:900;
+  letter-spacing:-.04em;color:var(--danger);
+  line-height:1;margin-bottom:10px;
+}
+.pain-label{font-size:18px;font-weight:700;margin-bottom:10px}
+.pain-desc{font-size:14px;color:var(--t2);line-height:1.7}
+.pain-bridge{
+  margin-top:48px;
+  background:linear-gradient(135deg,rgba(var(--ar),.08),rgba(var(--a2r),.06));
+  border:1px solid rgba(var(--ar),.18);
+  border-radius:20px;padding:32px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.pain-bridge-text{font-size:18px;font-weight:600;line-height:1.5;max-width:560px}
+.pain-bridge-text strong{color:var(--a)}
+
+/* ═══════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════ */
+.services-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:40px;margin-bottom:56px;flex-wrap:wrap;
+}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sc{
+  background:var(--s);border:1px solid var(--b);
+  border-radius:28px;padding:36px;
+  position:relative;overflow:hidden;transition:all .4s var(--ease);
+  cursor:pointer;text-decoration:none;color:inherit;display:block;
+}
+.sc::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(140deg,rgba(var(--ar),.07),transparent 55%);
+  opacity:0;transition:opacity .4s;
+}
+.sc:hover{background:var(--sh);border-color:rgba(var(--ar),.25);transform:translateY(-5px);
+  box-shadow:0 28px 64px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.06)}
+.sc:hover::before{opacity:1}
+.sc-icon{
+  width:50px;height:50px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(var(--ar),.14),rgba(var(--a3r),.08));
+  border:1px solid rgba(var(--ar),.2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+}
+.sc-icon svg{width:22px;height:22px;stroke:var(--a);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sc.green-card .sc-icon{background:linear-gradient(135deg,rgba(var(--a2r),.14),rgba(var(--ar),.08));border-color:rgba(var(--a2r),.2)}
+.sc.green-card .sc-icon svg{stroke:var(--a2)}
+.sc.green-card:hover{border-color:rgba(var(--a2r),.25)}
+.sc-title{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:11px}
+.sc-desc{font-size:14px;color:var(--t2);line-height:1.72}
+.sc-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.stag{
+  background:rgba(var(--ar),.08);border:1px solid rgba(var(--ar),.14);
+  color:var(--a);font-size:11px;font-weight:600;
+  padding:4px 11px;border-radius:100px;
+}
+.sc.green-card .stag{background:rgba(var(--a2r),.08);border-color:rgba(var(--a2r),.14);color:var(--a2)}
+.sc-arrow{
+  margin-top:20px;font-size:13px;font-weight:600;color:var(--a);
+  display:flex;align-items:center;gap:5px;
+  opacity:0;transform:translateX(-6px);transition:all .3s var(--ease);
+}
+.sc:hover .sc-arrow{opacity:1;transform:translateX(0)}
+
+/* ═══════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════ */
+.stats-bg{background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:60px 40px;text-align:center;border-right:1px solid var(--b)}
+.stat:last-child{border-right:none}
+.stat-num{
+  font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-.04em;
+  line-height:1;margin-bottom:8px;
+  background:linear-gradient(135deg,var(--a),var(--a3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-lbl{font-size:14px;color:var(--t2);font-weight:500}
+
+/* ═══════════════════════════════════════════
+   GREEN IT
+═══════════════════════════════════════════ */
+.green-bg{
+  background:linear-gradient(160deg,rgba(var(--a2r),.06) 0%,var(--bg) 60%);
+  border-top:1px solid rgba(var(--a2r),.15);
+  border-bottom:1px solid rgba(var(--a2r),.15);
+}
+.green-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.green-visual{
+  background:rgba(var(--a2r),.06);border:1px solid rgba(var(--a2r),.15);
+  border-radius:28px;padding:40px;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.green-stat-card{
+  background:var(--s);border:1px solid rgba(var(--a2r),.12);
+  border-radius:16px;padding:24px;text-align:center;
+}
+.green-stat-num{
+  font-size:36px;font-weight:900;letter-spacing:-.04em;
+  color:var(--a2);line-height:1;margin-bottom:6px;
+}
+.green-stat-lbl{font-size:12px;color:var(--t2);font-weight:500;line-height:1.4}
+.green-features{display:flex;flex-direction:column;gap:20px}
+.gfeat{display:flex;align-items:flex-start;gap:14px}
+.gfeat-icon{
+  width:42px;height:42px;border-radius:11px;flex-shrink:0;
+  background:rgba(var(--a2r),.1);border:1px solid rgba(var(--a2r),.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.gfeat-icon svg{width:20px;height:20px;stroke:var(--a2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gfeat-text h3{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.gfeat-text p{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ═══════════════════════════════════════════
+   COMPARISON TABLE
+═══════════════════════════════════════════ */
+.comp-table-wrap{margin-top:64px;overflow-x:auto}
+.comp-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  font-size:15px;
+}
+.comp-table thead th{
+  padding:20px 24px;font-size:12px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
+  border-bottom:1px solid var(--b);text-align:center;
+}
+.comp-table thead th:first-child{text-align:left;min-width:220px}
+.comp-table thead th.highlight{
+  background:rgba(var(--ar),.06);
+  border:1px solid rgba(var(--ar),.18);border-bottom:none;
+  color:var(--a);border-radius:14px 14px 0 0;
+}
+.comp-table tbody tr{transition:background .2s}
+.comp-table tbody tr:hover td{background:var(--s)}
+.comp-table tbody td{
+  padding:18px 24px;border-bottom:1px solid var(--b);
+  text-align:center;color:var(--t2);font-size:14px;font-weight:500;
+}
+.comp-table tbody td:first-child{text-align:left;color:var(--t);font-weight:600}
+.comp-table tbody td.highlight{
+  background:rgba(var(--ar),.05);
+  border-left:1px solid rgba(var(--ar),.18);border-right:1px solid rgba(var(--ar),.18);
+}
+.comp-table tbody tr:last-child td.highlight{
+  border-bottom:1px solid rgba(var(--ar),.18);border-radius:0 0 14px 14px;
+}
+.yes{color:var(--a2);font-size:18px;font-weight:900}
+.no{color:var(--danger);font-size:18px}
+.maybe{color:#F59E0B;font-size:18px}
+
+/* ═══════════════════════════════════════════
+   PROCESS
+═══════════════════════════════════════════ */
+.process-bg{background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.process-head{text-align:center;margin-bottom:72px}
+.process-head .eyebrow{justify-content:center}
+.process-head .lead{margin:0 auto}
+.psteps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.psteps::before{
+  content:'';position:absolute;top:27px;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--b) 20%,var(--b) 80%,transparent);
+}
+.pstep{text-align:center;padding:0 28px}
+.pnum{
+  width:54px;height:54px;border-radius:14px;margin:0 auto 24px;
+  position:relative;z-index:1;
+  background:var(--s);border:1px solid var(--b);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:800;color:var(--a);
+  transition:all .3s var(--ease);
+}
+.pstep:hover .pnum{background:rgba(var(--ar),.1);border-color:rgba(var(--ar),.3);transform:scale(1.06)}
+.ptitle{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px}
+.pdesc{font-size:14px;color:var(--t2);line-height:1.7}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════ */
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.tc{
+  background:var(--s);border:1px solid var(--b);border-radius:24px;
+  padding:34px;display:flex;flex-direction:column;gap:20px;
+  transition:all .4s var(--ease);cursor:default;
+}
+.tc:hover{background:var(--sh);border-color:rgba(var(--ar),.2);transform:translateY(-4px);box-shadow:0 24px 56px rgba(0,0,0,.12)}
+.tc-stars{display:flex;gap:3px}
+.tc-stars svg{width:14px;height:14px;fill:#F59E0B;stroke:none}
+.tc-q{
+  font-size:15px;color:var(--t2);line-height:1.75;font-style:italic;flex:1;
+  border-left:2px solid rgba(var(--ar),.3);padding-left:16px;
+}
+.tc-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--b)}
+.tc-av{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(var(--ar),.3),rgba(var(--a3r),.2));
+  border:1px solid rgba(var(--ar),.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:var(--a);
+}
+.tc-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.tc-role{font-size:12px;color:var(--t3);font-weight:500}
+
+/* ═══════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════ */
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:56px}
+.fi{background:var(--s);border:1px solid var(--b);border-radius:16px;overflow:hidden;transition:border-color .3s}
+.fi.open{border-color:rgba(var(--ar),.25)}
+.ft{
+  width:100%;background:none;border:none;padding:20px 22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:inherit;text-align:left;
+}
+.fq{font-size:15px;font-weight:600;color:var(--t);letter-spacing:-.01em;line-height:1.4}
+.fi-icon{
+  width:26px;height:26px;border-radius:8px;flex-shrink:0;
+  background:var(--sh);border:1px solid var(--b);
+  display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease);
+}
+.fi-icon svg{width:12px;height:12px;stroke:var(--t2);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .3s var(--ease)}
+.fi.open .fi-icon{background:rgba(var(--ar),.1);border-color:rgba(var(--ar),.2)}
+.fi.open .fi-icon svg{transform:rotate(45deg);stroke:var(--a)}
+.fb{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.fi.open .fb{max-height:240px}
+.fa{padding:0 22px 20px;font-size:14px;color:var(--t2);line-height:1.75}
+
+/* ═══════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════ */
+.cta-wrap{
+  border-radius:40px;
+  background:linear-gradient(140deg,rgba(var(--ar),.1),rgba(var(--a3r),.07));
+  border:1px solid rgba(var(--ar),.2);
+  padding:100px 60px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-wrap::before{
+  content:'';position:absolute;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(var(--ar),.1),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.cta-wrap>*{position:relative;z-index:1}
+.cta-h2{
+  font-size:clamp(28px,4.5vw,58px);font-weight:900;
+  letter-spacing:-.04em;line-height:1.05;margin-bottom:16px;
+}
+.cta-sub{font-size:18px;color:var(--t2);margin-bottom:12px}
+.cta-trust{
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  font-size:13px;color:var(--t3);font-weight:500;margin-bottom:44px;flex-wrap:wrap;
+}
+.cta-trust span{display:flex;align-items:center;gap:6px}
+.cta-trust svg{width:14px;height:14px;stroke:var(--a2);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+
+/* ═══════════════════════════════════════════
+   FLOAT BUTTON
+═══════════════════════════════════════════ */
+.float-btn{
+  position:fixed;bottom:28px;right:28px;z-index:900;
+  background:var(--a);color:#fff;border:none;border-radius:100px;
+  font-family:inherit;font-size:14px;font-weight:700;
+  padding:14px 22px;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 32px rgba(var(--ar),.45),0 2px 8px rgba(0,0,0,.2);
+  transition:all .4s var(--ease);text-decoration:none;
+  opacity:0;transform:translateY(16px) scale(.95);pointer-events:none;
+}
+.float-btn.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.float-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 18px 44px rgba(var(--ar),.52)}
+.float-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{border-top:1px solid var(--b);padding:52px 80px}
+.footer-inner{
+  max-width:1360px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.footer-copy{font-size:13px;color:var(--t3)}
+.footer-links{list-style:none;display:flex;gap:24px}
+.footer-links a{text-decoration:none;color:var(--t3);font-size:13px;transition:color .2s;cursor:pointer}
+.footer-links a:hover{color:var(--t2)}
+.footer-logo-wrap{
+  display:inline-flex;align-items:center;
+  border-radius:10px;
+  transition:all .3s var(--ease);
+}
+.footer-logo{
+  height:52px;
+  filter:
+    drop-shadow(0 0 8px rgba(26,112,240,.42))
+    drop-shadow(0 2px 10px rgba(0,0,0,.7))
+    brightness(1.05);
+  opacity:.85;
+}
+[data-theme="light"] .footer-logo{
+  filter:
+    brightness(0.5)
+    contrast(1.3)
+    drop-shadow(0 1px 6px rgba(0,0,0,.2))
+    drop-shadow(0 0 12px rgba(26,112,240,.3));
+  opacity:1;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.r{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+/* ── PILLARS ── */
+.pillars-wrap{background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.pillar{padding:64px 44px;position:relative;overflow:hidden;border-right:1px solid var(--b)}
+.pillar:last-child{border-right:none}
+.pillar-bg{
+  position:absolute;right:-20px;bottom:-20px;
+  font-size:160px;font-weight:900;letter-spacing:-.05em;
+  opacity:.04;line-height:1;pointer-events:none;
+  background:linear-gradient(135deg,var(--a),var(--a3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.pillar-icon{
+  width:60px;height:60px;border-radius:16px;margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(var(--ar),.12),rgba(var(--a3r),.08));
+  border:1px solid rgba(var(--ar),.2);
+}
+.pillar.p-sicher .pillar-icon{background:linear-gradient(135deg,rgba(var(--dr),.1),rgba(var(--a3r),.06));border-color:rgba(var(--dr),.2)}
+.pillar.p-sicher .pillar-icon svg{stroke:var(--danger)}
+.pillar.p-mensch .pillar-icon{background:linear-gradient(135deg,rgba(var(--a2r),.1),rgba(var(--ar),.06));border-color:rgba(var(--a2r),.2)}
+.pillar.p-mensch .pillar-icon svg{stroke:var(--a2)}
+.pillar.p-it .pillar-icon{background:linear-gradient(135deg,rgba(var(--a3r),.1),rgba(var(--ar),.06));border-color:rgba(var(--a3r),.2)}
+.pillar.p-it .pillar-icon svg{stroke:var(--a3)}
+.pillar-icon svg{width:28px;height:28px;stroke:var(--a);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pillar-num{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.pillar-title{font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-.04em;margin-bottom:16px}
+.pillar-title .accent{color:var(--a)}
+.pillar.p-sicher .pillar-title .accent{color:var(--danger)}
+.pillar.p-mensch .pillar-title .accent{color:var(--a2)}
+.pillar-desc{font-size:15px;color:var(--t2);line-height:1.75}
+.pillar-list{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.pillar-list li{font-size:14px;color:var(--t2);display:flex;align-items:center;gap:9px}
+.pillar-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--a);flex-shrink:0}
+.pillar.p-sicher .pillar-list li::before{background:var(--danger)}
+.pillar.p-mensch .pillar-list li::before{background:var(--a2)}
+.pillar.p-it .pillar-title .accent{color:var(--a3)}
+.pillar.p-it .pillar-list li::before{background:var(--a3)}
+
+/* ── 8-SERVICE GRID ── */
+.sg8{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.sc-wide{grid-column:span 2}
+.sc-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(var(--ar),.15),rgba(var(--a3r),.1));
+  border:1px solid rgba(var(--ar),.25);
+  color:var(--a);font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:100px;margin-bottom:16px;
+}
+
+/* ── AI PHILOSOPHY ── */
+.ai-bg{background:var(--bg3);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.ai-quote{
+  font-size:clamp(22px,3vw,36px);font-weight:800;
+  letter-spacing:-.03em;line-height:1.2;
+  margin-bottom:32px;
+}
+.ai-quote em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--a2),var(--a));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ai-beliefs{display:flex;flex-direction:column;gap:20px}
+.ai-belief{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:20px;border-radius:16px;
+  background:var(--s);border:1px solid var(--b);
+  transition:all .3s var(--ease);
+}
+.ai-belief:hover{background:var(--sh);border-color:rgba(var(--a2r),.2)}
+.ai-belief-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:rgba(var(--a2r),.1);border:1px solid rgba(var(--a2r),.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.ai-belief-icon svg{width:18px;height:18px;stroke:var(--a2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ai-belief h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.ai-belief p{font-size:13px;color:var(--t2);line-height:1.65}
+.ai-visual{
+  border-radius:28px;padding:48px 40px;
+  background:linear-gradient(140deg,rgba(var(--a2r),.08),rgba(var(--ar),.05));
+  border:1px solid rgba(var(--a2r),.15);
+  text-align:center;position:relative;overflow:hidden;
+}
+.ai-visual::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--a2r),.12),transparent 70%);
+}
+.ai-big-text{
+  font-size:clamp(48px,6vw,80px);font-weight:900;
+  letter-spacing:-.05em;line-height:1;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--a2),var(--a));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  position:relative;z-index:1;
+}
+.ai-big-sub{font-size:15px;color:var(--t2);line-height:1.7;position:relative;z-index:1}
+
+@media(max-width:1280px){
+  .pillars-grid{grid-template-columns:repeat(2,1fr)}
+  .pillar:nth-child(2){border-right:none}
+  .pillar:nth-child(3){border-top:1px solid var(--b)}
+  .pillar:nth-child(4){border-top:1px solid var(--b);border-right:none}
+}
+@media(max-width:1100px){
+  .pillars-grid{grid-template-columns:1fr}
+  .pillar{border-right:none!important;border-top:1px solid var(--b);padding:48px 36px}
+  .pillar:first-child{border-top:none}
+  .sg8{grid-template-columns:repeat(2,1fr)}
+  .sc-wide{grid-column:span 1}
+  .ai-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .sg8{grid-template-columns:1fr}
+  .sc-wide{grid-column:span 1}
+}
+
+@media(max-width:1100px){
+  .sec,.sec-full{padding:80px 40px}
+  .sg{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{border-bottom:1px solid var(--b)}
+  .stat:nth-child(2n){border-right:none}
+  .pain-grid{grid-template-columns:1fr}
+  .green-grid{grid-template-columns:1fr}
+  .psteps{grid-template-columns:repeat(2,1fr);gap:40px}
+  .psteps::before{display:none}
+  .tg{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  footer{padding:52px 40px}
+}
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{padding:96px 24px 80px}
+  .sec,.sec-full{padding:72px 24px}
+  .sg{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .cta-wrap{padding:60px 28px}
+  footer{padding:44px 24px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .green-visual{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- FLOAT BTN -->
+<a href="#contact" class="float-btn" id="floatBtn">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="de">Jetzt schützen</span>
+  <span class="en">Get Protected</span>
+</a>
+
+<!-- CURSOR -->
+<div id="cc">
+  <svg viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cg" x1="1" y1="1" x2="14" y2="20" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#b8d0ff"/>
+      </linearGradient>
+    </defs>
+    <path d="M1 1L16 8L9.5 10.5L6.5 19L1 1Z" fill="url(#cg)" fill-opacity="0.96"/>
+    <path d="M1 1L16 8L9.5 10.5L6.5 19L1 1Z" stroke="rgba(60,130,255,0.55)" stroke-width="0.85" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo-img-wrap" href="#">
+    <img src="logo_transparent.png"
+         alt="BRANI+ Digitale Lösungen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-size:18px;font-weight:900;letter-spacing:-.02em;color:var(--t)">BRANI<span style="color:var(--a)">+</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#services" class="de">Leistungen</a><a href="#services" class="en">Services</a></li>
+    <li><a href="#greenit" class="de">Green IT</a><a href="#greenit" class="en">Green IT</a></li>
+    <li><a href="#process" class="de">Ablauf</a><a href="#process" class="en">Process</a></li>
+    <li><a href="#compare" class="de">Vergleich</a><a href="#compare" class="en">Compare</a></li>
+    <li><a href="#contact" class="de">Kontakt</a><a href="#contact" class="en">Contact</a></li>
+  </ul>
+
+  <div class="nav-end">
+    <button class="ni" onclick="toggleLang()">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span id="langBtn">EN</span>
+    </button>
+    <button class="ni" onclick="toggleTheme()">
+      <svg id="themeIco" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="#contact" class="nav-cta btn btn-sm" style="animation:urgentPulse 3s ease-in-out infinite">
+      <span class="de">⚡ Sofort schützen</span>
+      <span class="en">⚡ Get Protected</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="canvas"></canvas>
+
+  <div class="hero-content">
+    <!-- Badge -->
+    <div class="hero-badge r d1">
+      <span class="badge-dot"></span>
+      <span class="de">Vollständige IT und Digitalisierung aus einer Hand</span>
+      <span class="en">Complete IT and digitalization from one source</span>
+    </div>
+
+    <!-- Typewriter headline -->
+    <h1 class="hero-h1 r d2">
+      <span class="hero-static de">Ihre Praxis.</span>
+      <span class="hero-static en">Your Practice.</span>
+      <span class="hero-dynamic" id="tw"></span><span class="cursor-blink"></span>
+    </h1>
+
+    <!-- Sub -->
+    <p class="hero-sub r d3">
+      <span class="de">Von der IT-Infrastruktur bis zur KI-gestützten Automatisierung. Webentwicklung, Compliance, digitale Workflows. <strong>Alles aus einer Hand. Immer mit dem Menschen im Mittelpunkt.</strong></span>
+      <span class="en">From IT infrastructure to AI-supported automation. Web development, compliance, digital workflows. <strong>Everything from one source. Always with the human at the center.</strong></span>
+    </p>
+
+    <!-- Trust chips -->
+    <div class="hero-chips r d4" style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:36px">
+      <span style="background:var(--s);border:1px solid var(--b);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--t2)">NIS2 konform</span>
+      <span style="background:var(--s);border:1px solid var(--b);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--t2)">DSGVO ready</span>
+      <span style="background:rgba(var(--a2r),.08);border:1px solid rgba(var(--a2r),.2);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--a2)">Green IT</span>
+      <span style="background:var(--s);border:1px solid var(--b);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--t2)" class="de">KI ohne Menschenersatz</span>
+      <span style="background:var(--s);border:1px solid var(--b);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--t2)" class="en">Human-first AI</span>
+      <span style="background:rgba(var(--ar),.08);border:1px solid rgba(var(--ar),.2);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--a)" class="de">Eigenes Ticketing-System</span>
+      <span style="background:rgba(var(--ar),.08);border:1px solid rgba(var(--ar),.2);border-radius:100px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--a)" class="en">Own Ticketing System</span>
+    </div>
+
+    <!-- CTAs -->
+    <div class="hero-ctas r d5">
+      <div class="magnetic">
+        <a href="#contact" class="btn btn-blue" style="font-size:17px;padding:18px 38px">
+          <span class="de">Kostenloses Sicherheits-Audit</span>
+          <span class="en">Free Security Audit</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="magnetic">
+        <a href="#services" class="btn btn-ghost" style="font-size:17px;padding:18px 38px">
+          <span class="de">Leistungen entdecken</span>
+          <span class="en">Discover Services</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;z-index:1">
+    <div style="width:1px;height:44px;background:linear-gradient(to bottom,var(--t3),transparent);animation:scrollDown 2.2s ease-in-out infinite"></div>
+    <span class="de">Mehr erfahren</span><span class="en">Learn more</span>
+  </div>
+  <style>
+    @keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top;opacity:0}40%{transform:scaleY(1);transform-origin:top;opacity:1}70%{transform:scaleY(1);transform-origin:bottom;opacity:1}100%{transform:scaleY(0);transform-origin:bottom;opacity:0}}
+  </style>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item de">IT Infrastruktur aus einer Hand</span><span class="ticker-item en">IT infrastructure from one source</span>
+    <span class="ticker-item de">NIS2 und DSGVO Compliance</span><span class="ticker-item en">NIS2 and GDPR compliance</span>
+    <span class="ticker-item de">Web und App Entwicklung für Arztpraxen</span><span class="ticker-item en">Web and app development for practices</span>
+    <span class="ticker-item de">KI die Menschen stärkt nicht ersetzt</span><span class="ticker-item en">AI that empowers people not replaces them</span>
+    <span class="ticker-item de">Eigenes BRANI+ Ticketing System</span><span class="ticker-item en">Exclusive BRANI+ ticketing system</span>
+    <span class="ticker-item de">Green IT CO₂ neutral ab Tag 1</span><span class="ticker-item en">Green IT carbon neutral from day 1</span>
+    <span class="ticker-item de">AI Act konform</span><span class="ticker-item en">AI Act compliant</span>
+    <span class="ticker-item de">Digitale Dokumentation und Archivierung</span><span class="ticker-item en">Digital documentation and archiving</span>
+    <span class="ticker-item de">IT Infrastruktur aus einer Hand</span><span class="ticker-item en">IT infrastructure from one source</span>
+    <span class="ticker-item de">NIS2 und DSGVO Compliance</span><span class="ticker-item en">NIS2 and GDPR compliance</span>
+    <span class="ticker-item de">Web und App Entwicklung für Arztpraxen</span><span class="ticker-item en">Web and app development for practices</span>
+    <span class="ticker-item de">KI die Menschen stärkt nicht ersetzt</span><span class="ticker-item en">AI that empowers people not replaces them</span>
+    <span class="ticker-item de">Eigenes BRANI+ Ticketing System</span><span class="ticker-item en">Exclusive BRANI+ ticketing system</span>
+    <span class="ticker-item de">Green IT CO₂ neutral ab Tag 1</span><span class="ticker-item en">Green IT carbon neutral from day 1</span>
+    <span class="ticker-item de">AI Act konform</span><span class="ticker-item en">AI Act compliant</span>
+    <span class="ticker-item de">Digitale Dokumentation und Archivierung</span><span class="ticker-item en">Digital documentation and archiving</span>
+  </div>
+</div>
+
+<!-- THREE PILLARS -->
+<div class="pillars-wrap">
+  <div class="container">
+    <div class="pillars-grid">
+
+      <!-- 01 MENSCHLICH -->
+      <div class="pillar p-mensch r">
+        <div class="pillar-bg">M</div>
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="pillar-title de"><span class="accent">Menschlich.</span><br>Modern.</div>
+        <div class="pillar-title en"><span class="accent">Human.</span><br>Modern.</div>
+        <p class="pillar-desc de">Technologie im Dienst der Menschen. KI die befreit statt ersetzt. Vertrauen als Fundament. Gemeinschaft als Ziel.</p>
+        <p class="pillar-desc en">Technology in service of people. AI that liberates instead of replaces. Trust as foundation. Community as goal.</p>
+        <ul class="pillar-list">
+          <li class="de">KI die Aufgaben abnimmt nicht Menschen</li><li class="en">AI that takes tasks not people</li>
+          <li class="de">Persönlicher Ansprechpartner immer</li><li class="en">Personal contact always</li>
+          <li class="de">Langfristige Partnerschaft kein Vertrag</li><li class="en">Long-term partnership not a contract</li>
+          <li class="de">Green IT für die nächste Generation</li><li class="en">Green IT for the next generation</li>
+        </ul>
+      </div>
+
+      <!-- 02 SICHER -->
+      <div class="pillar p-sicher r d1">
+        <div class="pillar-bg">S</div>
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5.5-8 10-8 10S4 17.5 4 12V6l8-4z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="pillar-title de"><span class="accent">Sicher.</span><br>Konform.</div>
+        <div class="pillar-title en"><span class="accent">Secure.</span><br>Compliant.</div>
+        <p class="pillar-desc de">Cybersecurity, NIS2-Umsetzung, DSGVO-Compliance und AI Act. Rechtssicher, technisch korrekt, vollständig dokumentiert.</p>
+        <p class="pillar-desc en">Cybersecurity, NIS2 implementation, GDPR compliance and AI Act. Legally secure, technically correct, fully documented.</p>
+        <ul class="pillar-list">
+          <li class="de">NIS2 Risikoanalyse und Umsetzung</li><li class="en">NIS2 risk analysis and implementation</li>
+          <li class="de">DSGVO vollständig implementiert</li><li class="en">GDPR fully implemented</li>
+          <li class="de">AI Act Compliance Beratung</li><li class="en">AI Act compliance consulting</li>
+          <li class="de">Cybersecurity Monitoring</li><li class="en">Cybersecurity monitoring</li>
+        </ul>
+      </div>
+
+      <!-- 03 IT -->
+      <div class="pillar p-it r d2">
+        <div class="pillar-bg">IT</div>
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="4" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/>
+            <circle cx="18.5" cy="6" r=".8" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r=".8" fill="currentColor" stroke="none"/>
+            <line x1="12" y1="14" x2="12" y2="17"/><line x1="7" y1="17" x2="17" y2="17"/>
+            <circle cx="7" cy="20" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
+          </svg>
+        </div>
+        <div class="pillar-title de"><span class="accent">IT.</span><br>Komplett.</div>
+        <div class="pillar-title en"><span class="accent">IT.</span><br>Complete.</div>
+        <p class="pillar-desc de">Netzwerke, Server, Hardware, Microsoft Migration und Telematikinfrastruktur. Vor Ort. Zuverlässig. Ohne Ausfälle.</p>
+        <p class="pillar-desc en">Networks, servers, hardware, Microsoft migration and telematics infrastructure. On site. Reliable. Without failures.</p>
+        <ul class="pillar-list">
+          <li class="de">Server und Netzwerkinfrastruktur</li><li class="en">Server and network infrastructure</li>
+          <li class="de">Hardware Installation vor Ort</li><li class="en">Hardware installation on site</li>
+          <li class="de">Microsoft und Cloud Migration</li><li class="en">Microsoft and cloud migration</li>
+          <li class="de">Telematikinfrastruktur (TI)</li><li class="en">Telematics infrastructure (TI)</li>
+        </ul>
+      </div>
+
+      <!-- 04 DIGITAL -->
+      <div class="pillar r d3">
+        <div class="pillar-bg">D</div>
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="pillar-title de"><span class="accent">Digital.</span><br>Vollständig.</div>
+        <div class="pillar-title en"><span class="accent">Digital.</span><br>Complete.</div>
+        <p class="pillar-desc de">IT-Infrastruktur, Webentwicklung, Apps, Buchungssysteme, digitale Dokumentation und KI-Workflows. Alles aus einer Hand.</p>
+        <p class="pillar-desc en">IT infrastructure, web development, apps, booking systems, digital documentation and AI workflows. Everything from one source.</p>
+        <ul class="pillar-list">
+          <li class="de">Web und App Entwicklung</li><li class="en">Web and app development</li>
+          <li class="de">Digitale Workflows und Automation</li><li class="en">Digital workflows and automation</li>
+          <li class="de">Buchungssysteme und Patientenportale</li><li class="en">Booking systems and patient portals</li>
+          <li class="de">Eigenes BRANI+ Ticketing System</li><li class="en">Exclusive BRANI+ ticketing system</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAIN SECTION -->
+<div class="pain-bg">
+  <div class="sec-full sec">
+    <div class="container">
+      <div class="eyebrow r" style="color:var(--danger)"><span style="background:var(--danger);width:22px;height:1.5px;flex-shrink:0;display:block"></span>
+        <span class="de">Ohne BRANI+</span><span class="en">Without BRANI+</span>
+      </div>
+      <h2 class="h2 r d1">
+        <span class="de">Was ein IT-Ausfall Ihre<br>Praxis wirklich kostet.</span>
+        <span class="en">What an IT failure really<br>costs your practice.</span>
+      </h2>
+      <div class="pain-grid">
+        <div class="pain-card r d1">
+          <div class="pain-num">3.400 €</div>
+          <div class="pain-label de">Pro Tag Praxis-Ausfall</div>
+          <div class="pain-label en">Per day of practice downtime</div>
+          <p class="pain-desc de">40 Patienten × 85€ = entgangener Umsatz. Dazu kommen Aufwand für Vertretungen, Nachholtermine und Vertrauensverlust.</p>
+          <p class="pain-desc en">40 patients × €85 = lost revenue. Add the cost of substitute staff, rescheduling, and lost patient trust.</p>
+        </div>
+        <div class="pain-card r d2">
+          <div class="pain-num">10 Mio. €</div>
+          <div class="pain-label de">NIS2-Bußgeld möglich</div>
+          <div class="pain-label en">Possible NIS2 fine</div>
+          <p class="pain-desc de">Fehlende Cybersecurity-Maßnahmen können nach NIS2 mit bis zu 10.000.000 € oder 2% des Jahresumsatzes bestraft werden.</p>
+          <p class="pain-desc en">Insufficient cybersecurity measures can result in fines up to €10,000,000 or 2% of annual turnover under NIS2.</p>
+        </div>
+        <div class="pain-card r d3">
+          <div class="pain-num">20 Mio. €</div>
+          <div class="pain-label de">DSGVO-Strafe maximal</div>
+          <div class="pain-label en">Maximum GDPR penalty</div>
+          <p class="pain-desc de">Ein Datenleck bei Patientendaten ist meldepflichtig und kann existenzbedrohende DSGVO-Strafen nach sich ziehen.</p>
+          <p class="pain-desc en">A patient data breach is reportable and can result in existential GDPR fines for your practice.</p>
+        </div>
+        <div class="pain-card r d4">
+          <div class="pain-num">∞</div>
+          <div class="pain-label de">Reputationsverlust</div>
+          <div class="pain-label en">Reputation damage</div>
+          <p class="pain-desc de">Patienten vertrauen Ihrer Praxis ihre sensibelsten Daten an. Ein einziger Sicherheitsvorfall kann Jahre an Vertrauen vernichten.</p>
+          <p class="pain-desc en">Patients trust your practice with their most sensitive data. A single security incident can destroy years of trust.</p>
+        </div>
+      </div>
+      <div class="pain-bridge r d5">
+        <p class="pain-bridge-text de">BRANI+ kostet weniger als <strong>ein einziger Ausfalltag</strong> — und schützt Sie vor allem davon. Jeden Monat.</p>
+        <p class="pain-bridge-text en">BRANI+ costs less than <strong>a single day of downtime</strong> — and protects you from all of the above. Every month.</p>
+        <a href="#contact" class="btn btn-blue btn-sm de">Jetzt sichern →</a>
+        <a href="#contact" class="btn btn-blue btn-sm en">Secure now →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="sec-full" style="background:var(--bg)">
+  <div class="container sec" style="padding-top:0;padding-bottom:0">
+    <div class="services-head">
+      <div>
+        <div class="eyebrow r de">Unsere Leistungen</div>
+        <div class="eyebrow r en">Our Services</div>
+        <h2 class="h2 r d1"><span class="de">Alles aus einer Hand.<br>Nichts ausgelassen.</span><span class="en">Everything from one source.<br>Nothing left out.</span></h2>
+      </div>
+      <p class="lead r d2">
+        <span class="de">Kein Koordinationsaufwand zwischen verschiedenen Anbietern. Kein Verantwortungsloch. Ein Partner für alles.</span>
+        <span class="en">No coordination effort between different providers. No responsibility gap. One partner for everything.</span>
+      </p>
+    </div>
+    <div class="sg8">
+
+      <!-- 1: IT Infrastruktur -->
+      <a class="sc r" href="leistungen/it-infrastruktur.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="5" rx="1.5"/>
+            <rect x="2" y="10" width="20" height="5" rx="1.5"/>
+            <circle cx="19" cy="5.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="19" cy="12.5" r="1" fill="currentColor" stroke="none"/>
+            <line x1="5" y1="5.5" x2="9" y2="5.5" stroke-width="1.4"/>
+            <line x1="5" y1="12.5" x2="9" y2="12.5" stroke-width="1.4"/>
+            <line x1="12" y1="15" x2="12" y2="18"/>
+            <line x1="7" y1="18" x2="17" y2="18"/>
+            <circle cx="7" cy="21" r="1.5"/><circle cx="12" cy="21" r="1.5"/><circle cx="17" cy="21" r="1.5"/>
+          </svg>
+        </div>
+        <p class="sc-title de">IT-Infrastruktur</p><p class="sc-title en">IT Infrastructure</p>
+        <p class="sc-desc de">Wir planen, installieren und warten Ihre gesamte Praxis-IT. Server, Netzwerk, Hardware und sichere Datensicherung ohne Kompromisse.</p>
+        <p class="sc-desc en">We plan, install and maintain your entire practice IT. Servers, network, hardware and secure data backup without compromise.</p>
+        <div class="sc-tags"><span class="stag">Server</span><span class="stag">Netzwerk</span><span class="stag">Backup</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 2: Cybersecurity -->
+      <a class="sc r d1" href="leistungen/cybersecurity.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v5.5C4 16.9 8.4 21.5 12 22c3.6-.5 8-5.1 8-10.5V6L12 2z"/>
+            <rect x="9" y="11.5" width="6" height="4.5" rx="1"/>
+            <path d="M10.5 11.5V10a1.5 1.5 0 0 1 3 0v1.5"/>
+          </svg>
+        </div>
+        <p class="sc-title de">Cybersecurity und NIS2</p><p class="sc-title en">Cybersecurity and NIS2</p>
+        <p class="sc-desc de">Vollständige Risikoanalyse, technische Schutzmaßnahmen und NIS2-Umsetzung. Rechtssicher dokumentiert und laufend überwacht.</p>
+        <p class="sc-desc en">Complete risk analysis, technical protection measures and NIS2 implementation. Legally documented and continuously monitored.</p>
+        <div class="sc-tags"><span class="stag">NIS2</span><span class="stag">Firewall</span><span class="stag">Monitoring</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 3: DSGVO -->
+      <a class="sc r d2" href="leistungen/dsgvo.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <circle cx="12" cy="14" r="2.5"/>
+            <path d="M10.8 13l1 1 2-2" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <p class="sc-title de">DSGVO-Compliance</p><p class="sc-title en">GDPR Compliance</p>
+        <p class="sc-desc de">Datenschutz vollständig umgesetzt. Von der Datenschutzerklärung bis zum Verarbeitungsverzeichnis. Technisch korrekt und prüfungssicher.</p>
+        <p class="sc-desc en">Data protection fully implemented. From the privacy policy to the processing register. Technically correct and audit-proof.</p>
+        <div class="sc-tags"><span class="stag">DSGVO</span><span class="stag">Audit</span><span class="stag">Dokumentation</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 4: Web und Apps -->
+      <a class="sc r d3" href="leistungen/web-app.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="15" height="13" rx="1.5"/>
+            <line x1="1" y1="8" x2="16" y2="8"/>
+            <circle cx="3.8" cy="6" r=".7" fill="currentColor" stroke="none"/>
+            <circle cx="6.2" cy="6" r=".7" fill="currentColor" stroke="none"/>
+            <polyline points="4 12 6 10 4 8" stroke-width="1.4"/>
+            <line x1="8" y1="12" x2="13" y2="12" stroke-width="1.4"/>
+            <rect x="18" y="7" width="5" height="9" rx="1"/>
+            <line x1="18" y1="9.5" x2="23" y2="9.5"/>
+            <line x1="18" y1="13" x2="23" y2="13"/>
+          </svg>
+        </div>
+        <p class="sc-title de">Web und App-Entwicklung</p><p class="sc-title en">Web and App Development</p>
+        <p class="sc-desc de">Professionelle Praxis-Websites, Patienten-Apps und digitale Portale. Modern, mobiloptimiert und direkt auf Ihre Marke zugeschnitten.</p>
+        <p class="sc-desc en">Professional practice websites, patient apps and digital portals. Modern, mobile-optimized and tailored directly to your brand.</p>
+        <div class="sc-tags"><span class="stag">Website</span><span class="stag">App</span><span class="stag">SEO</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 5: KI und Automation -->
+      <a class="sc r d4" href="leistungen/ki-automation.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="7" width="10" height="10" rx="1.5"/>
+            <line x1="9" y1="7" x2="9" y2="4"/><line x1="12" y1="7" x2="12" y2="4"/><line x1="15" y1="7" x2="15" y2="4"/>
+            <line x1="9" y1="17" x2="9" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/><line x1="15" y1="17" x2="15" y2="20"/>
+            <line x1="7" y1="10" x2="4" y2="10"/><line x1="7" y1="14" x2="4" y2="14"/>
+            <line x1="17" y1="10" x2="20" y2="10"/><line x1="17" y1="14" x2="20" y2="14"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </div>
+        <p class="sc-title de">KI und Automation</p><p class="sc-title en">AI and Automation</p>
+        <p class="sc-desc de">KI die Aufgaben abnimmt nicht Menschen. Automatisierte Dokumentation, smarte Workflows und Zeitersparnis für Ihr Team.</p>
+        <p class="sc-desc en">AI that takes tasks not people. Automated documentation, smart workflows and time savings for your team.</p>
+        <div class="sc-tags"><span class="stag">KI</span><span class="stag">Workflows</span><span class="stag">AI Act</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 6: Digitale Dokumentation -->
+      <a class="sc r d5" href="leistungen/dokumentation.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 9h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1z" stroke-opacity=".45"/>
+            <path d="M6 6h12a1 1 0 0 1 1 1v9" stroke-opacity=".7"/>
+            <path d="M8 3h9l3 3v9a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+            <polyline points="17 3 17 6 20 6"/>
+            <line x1="10" y1="9" x2="16" y2="9"/><line x1="10" y1="12" x2="16" y2="12"/><line x1="10" y1="15" x2="13" y2="15"/>
+          </svg>
+        </div>
+        <p class="sc-title de">Digitale Dokumentation</p><p class="sc-title en">Digital Documentation</p>
+        <p class="sc-desc de">Vollständige digitale Archivierung Ihrer Praxisdokumente. Sicher, DSGVO-konform, jederzeit abrufbar und strukturiert.</p>
+        <p class="sc-desc en">Complete digital archiving of your practice documents. Secure, GDPR-compliant, retrievable anytime and organized.</p>
+        <div class="sc-tags"><span class="stag">Archiv</span><span class="stag">Cloud</span><span class="stag">DSGVO</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 7: Buchungssysteme -->
+      <a class="sc r" href="leistungen/buchungssysteme.html">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <circle cx="8" cy="15" r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="15" r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="15" r=".8" fill="currentColor" stroke="none"/>
+            <rect x="5.5" y="18" width="4" height="2.5" rx=".6" fill="rgba(26,112,240,.2)"/>
+            <polyline points="6.5 19.2 7.5 20.2 9 18.5" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <p class="sc-title de">Buchungssysteme</p><p class="sc-title en">Booking Systems</p>
+        <p class="sc-desc de">Digitale Terminvergabe die Patienten begeistert und Ihr Telefon entlastet. Kompatibel mit allen gängigen Praxisverwaltungssystemen.</p>
+        <p class="sc-desc en">Digital appointment scheduling that delights patients and relieves your phone. Compatible with all common practice management systems.</p>
+        <div class="sc-tags"><span class="stag">Online</span><span class="stag">PVS</span><span class="stag">TI</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+      <!-- 8: BRANI+ Ticketing (wide, special) -->
+      <a class="sc sc-wide r d1" href="leistungen/ticketing.html" style="background:linear-gradient(140deg,rgba(var(--ar),.08),rgba(var(--a3r),.06));border-color:rgba(var(--ar),.2)">
+        <div class="sc-badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="12 2 15 9 22 9 16 14 18 21 12 17 6 21 8 14 2 9 9 9"/></svg>
+          <span class="de">Exklusiv von BRANI+</span><span class="en">Exclusive from BRANI+</span>
+        </div>
+        <div class="sc-icon" style="background:linear-gradient(135deg,rgba(var(--ar),.18),rgba(var(--a3r),.12));border-color:rgba(var(--ar),.3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11c0-4.97 4.03-9 9-9s9 4.03 9 9"/>
+            <path d="M3 11v2a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/>
+            <path d="M21 11v2a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z"/>
+            <path d="M15 19a3 3 0 0 1-6 0"/>
+            <line x1="12" y1="15" x2="12" y2="19"/>
+          </svg>
+        </div>
+        <p class="sc-title de">BRANI+ Ticketing System</p><p class="sc-title en">BRANI+ Ticketing System</p>
+        <p class="sc-desc de">Unser eigens entwickeltes Support und Ticketing-System für Arztpraxen. Kein Drittanbieter. Kein Datenschutzrisiko. Volle Kontrolle über jeden Supportprozess in Ihrer Praxis.</p>
+        <p class="sc-desc en">Our own developed support and ticketing system for medical practices. No third party. No data protection risk. Full control over every support process in your practice.</p>
+        <div class="sc-tags"><span class="stag">Eigenentwicklung</span><span class="stag">DSGVO-konform</span><span class="stag">Praxis-Support</span></div>
+        <div class="sc-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bg">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat r"><div class="stat-num" data-target="100" data-suffix="%">0</div><p class="stat-lbl de">DSGVO-Konformität garantiert</p><p class="stat-lbl en">GDPR compliance guaranteed</p></div>
+      <div class="stat r d1"><div class="stat-num" data-static="1">1</div><p class="stat-lbl de">Persönlicher Ansprechpartner für alles</p><p class="stat-lbl en">Personal contact for everything</p></div>
+      <div class="stat r d2"><div class="stat-num" data-prefix="<" data-target="4" data-suffix="h">0</div><p class="stat-lbl de">Reaktionszeit garantiert</p><p class="stat-lbl en">Response time guaranteed</p></div>
+      <div class="stat r d3"><div class="stat-num" data-target="0" data-suffix="" data-static="CO₂">CO₂</div><p class="stat-lbl de">Neutral — Green IT Standard</p><p class="stat-lbl en">Neutral — Green IT Standard</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- AI PHILOSOPHY -->
+<div class="ai-bg">
+  <div class="container sec">
+    <div class="ai-grid">
+      <div>
+        <div class="eyebrow green r">Unsere Philosophie</div>
+        <div class="ai-quote r d1">
+          <span class="de"><em>KI die Menschen stärkt.</em><br>Nicht ersetzt.</span>
+          <span class="en"><em>AI that empowers people.</em><br>Not replaces them.</span>
+        </div>
+        <p class="lead r d2" style="margin-bottom:36px">
+          <span class="de">Wir glauben: Die Zukunft gehört Menschen die smarte Werkzeuge nutzen und trotzdem Mensch bleiben. Technologie ist Mittel. Menschen sind Zweck.</span>
+          <span class="en">We believe: The future belongs to people who use smart tools and still remain human. Technology is a means. People are the purpose.</span>
+        </p>
+        <div class="ai-beliefs">
+          <div class="ai-belief r d3">
+            <div class="ai-belief-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div>
+              <h3 class="de">Menschen zuerst</h3><h3 class="en">People first</h3>
+              <p class="de">Wir automatisieren Aufgaben damit Ihr Team Zeit für Patienten hat. Nicht umgekehrt.</p>
+              <p class="en">We automate tasks so your team has time for patients. Not the other way around.</p>
+            </div>
+          </div>
+          <div class="ai-belief r d4">
+            <div class="ai-belief-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <div>
+              <h3 class="de">Vertrauen als Kapital</h3><h3 class="en">Trust as capital</h3>
+              <p class="de">Wir arbeiten lieber mit Partnern die auf Menschen setzen als auf Maschinen. Langfristig. Persönlich. Ehrlich.</p>
+              <p class="en">We prefer working with partners who bet on people over machines. Long-term. Personal. Honest.</p>
+            </div>
+          </div>
+          <div class="ai-belief r d5">
+            <div class="ai-belief-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div>
+              <h3 class="de">Gemeinschaft als Ziel</h3><h3 class="en">Community as goal</h3>
+              <p class="de">Ihre Praxis ist ein Teil der Gemeinschaft. Unsere Technologie sollte das stärken nicht ersetzen.</p>
+              <p class="en">Your practice is part of the community. Our technology should strengthen that not replace it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-visual r d2">
+        <div class="ai-big-text de">Menschen<br>First.</div>
+        <div class="ai-big-text en">People<br>First.</div>
+        <p class="ai-big-sub de">Technologie im Dienst der Menschen. Heute, morgen und in der KI-Ära.</p>
+        <p class="ai-big-sub en">Technology in service of people. Today, tomorrow and in the AI era.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GREEN IT -->
+<div id="greenit" class="green-bg">
+  <div class="sec-full sec">
+    <div class="container">
+      <div class="green-grid">
+        <div>
+          <div class="eyebrow green r">Green IT</div>
+          <h2 class="h2 r d1"><span class="de">IT mit<br>Gewissen.</span><span class="en">IT with<br>conscience.</span></h2>
+          <p class="lead r d2" style="margin-bottom:40px">
+            <span class="de">Als einziger spezialisierter IT-Anbieter für Arztpraxen bieten wir vollständig CO₂-neutrale Infrastruktur — nicht als Option, sondern als Standard.</span>
+            <span class="en">As the only specialized IT provider for medical practices, we offer fully carbon-neutral infrastructure — not as an option, but as standard.</span>
+          </p>
+          <div class="green-features">
+            <div class="gfeat r d3">
+              <div class="gfeat-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="gfeat-text">
+                <h3 class="de">100% Erneuerbare Energie</h3><h3 class="en">100% Renewable Energy</h3>
+                <p class="de">Unsere Server-Infrastruktur läuft ausschließlich mit Wind- und Solarenergie aus zertifizierten Rechenzentren.</p>
+                <p class="en">Our server infrastructure runs exclusively on wind and solar energy from certified data centers.</p>
+              </div>
+            </div>
+            <div class="gfeat r d4">
+              <div class="gfeat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <div class="gfeat-text">
+                <h3 class="de">65% weniger Energieverbrauch</h3><h3 class="en">65% less energy consumption</h3>
+                <p class="de">Energieeffiziente Hardware und optimierte Netzwerke reduzieren den Stromverbrauch Ihrer Praxis signifikant.</p>
+                <p class="en">Energy-efficient hardware and optimized networks significantly reduce your practice's power consumption.</p>
+              </div>
+            </div>
+            <div class="gfeat r d5">
+              <div class="gfeat-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+              <div class="gfeat-text">
+                <h3 class="de">ESG-Reporting für Ihre Praxis</h3><h3 class="en">ESG Reporting for your practice</h3>
+                <p class="de">Jährlicher CO₂-Bericht, EU Green Deal konform — ideal für Ihre Nachhaltigkeitskommunikation.</p>
+                <p class="en">Annual CO₂ report, EU Green Deal compliant — ideal for your sustainability communications.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="green-visual r d2">
+          <div class="green-stat-card">
+            <div class="green-stat-num">100%</div>
+            <div class="green-stat-lbl de">Erneuerbare Energie für alle Server</div>
+            <div class="green-stat-lbl en">Renewable energy for all servers</div>
+          </div>
+          <div class="green-stat-card">
+            <div class="green-stat-num">65%</div>
+            <div class="green-stat-lbl de">Weniger CO₂ vs. Standard-IT</div>
+            <div class="green-stat-lbl en">Less CO₂ vs. standard IT</div>
+          </div>
+          <div class="green-stat-card">
+            <div class="green-stat-num">0</div>
+            <div class="green-stat-lbl de">Netto-CO₂-Emissionen</div>
+            <div class="green-stat-lbl en">Net CO₂ emissions</div>
+          </div>
+          <div class="green-stat-card">
+            <div class="green-stat-num">EU</div>
+            <div class="green-stat-lbl de">Green Deal konform</div>
+            <div class="green-stat-lbl en">Green Deal compliant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div id="compare" class="sec-full" style="background:var(--bg2);border-top:1px solid var(--b);border-bottom:1px solid var(--b)">
+  <div class="container sec" style="padding-top:0;padding-bottom:0">
+    <div style="text-align:center">
+      <div class="eyebrow r" style="justify-content:center"><span class="de">Warum BRANI+</span><span class="en">Why BRANI+</span></div>
+      <h2 class="h2 r d1"><span class="de">Der direkte Vergleich.</span><span class="en">The direct comparison.</span></h2>
+      <p class="lead r d2" style="margin:0 auto">
+        <span class="de">Große IT-Konzerne denken in Unternehmenskunden. Wir denken in Arztpraxen.</span>
+        <span class="en">Large IT corporations think in enterprise clients. We think in medical practices.</span>
+      </p>
+    </div>
+    <div class="comp-table-wrap r d3">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="highlight">BRANI+</th>
+            <th class="de">IT-Großkonzern</th><th class="en">Large IT Corp</th>
+            <th class="de">Generalist-Anbieter</th><th class="en">Generalist Provider</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="de">Spezialisiert auf Arztpraxen</td><td class="en">Specialized for medical practices</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="de">Reaktion &lt;4h garantiert</td><td class="en">Response &lt;4h guaranteed</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="maybe">~</span></td><td><span class="maybe">~</span></td>
+          </tr>
+          <tr>
+            <td class="de">Ohne Vertragsbindung</td><td class="en">No long-term contracts</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="de">CO₂-neutral (Green IT)</td><td class="en">Carbon neutral (Green IT)</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="maybe">~</span></td><td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="de">NIS2-Spezialist Gesundheit</td><td class="en">NIS2 specialist for healthcare</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="maybe">~</span></td>
+          </tr>
+          <tr>
+            <td class="de">Transparente Festpreise</td><td class="en">Transparent flat rates</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="de">Persönlicher Ansprechpartner</td><td class="en">Personal point of contact</td>
+            <td class="highlight"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="maybe">~</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div id="process" class="process-bg">
+  <div class="container sec">
+    <div class="process-head">
+      <div class="eyebrow r">
+        <span class="de">Unser Ablauf</span><span class="en">Our Process</span>
+      </div>
+      <h2 class="h2 r d1"><span class="de">In 4 Schritten.<br>Ohne Unterbrechung.</span><span class="en">In 4 steps.<br>Without interruption.</span></h2>
+      <p class="lead r d2">
+        <span class="de">Vom ersten Gespräch bis zur laufenden Betreuung — wir begleiten jeden Schritt.</span>
+        <span class="en">From the first conversation to ongoing support — we guide every step.</span>
+      </p>
+    </div>
+    <div class="psteps">
+      <div class="pstep r">
+        <div class="pnum">01</div>
+        <p class="ptitle de">Analyse</p><p class="ptitle en">Analysis</p>
+        <p class="pdesc de">Kostenlose IT-Sicherheitsanalyse Ihrer Praxis — Schwachstellen, Compliance-Status, Handlungsbedarf.</p>
+        <p class="pdesc en">Free IT security analysis of your practice — vulnerabilities, compliance status, action required.</p>
+      </div>
+      <div class="pstep r d1">
+        <div class="pnum">02</div>
+        <p class="ptitle de">Konzept</p><p class="ptitle en">Concept</p>
+        <p class="pdesc de">Maßgeschneiderter Plan — speziell für Ihre Praxis, Ihr Budget, Ihre Ziele.</p>
+        <p class="pdesc en">Tailored plan — specifically for your practice, your budget, your goals.</p>
+      </div>
+      <div class="pstep r d2">
+        <div class="pnum">03</div>
+        <p class="ptitle de">Umsetzung</p><p class="ptitle en">Implementation</p>
+        <p class="pdesc de">Schnell und störungsfrei — Ihre Praxis läuft während der gesamten Umstellung weiter.</p>
+        <p class="pdesc en">Fast and seamlessly — your practice keeps running throughout the entire transition.</p>
+      </div>
+      <div class="pstep r d3">
+        <div class="pnum">04</div>
+        <p class="ptitle de">Betreuung</p><p class="ptitle en">Ongoing Care</p>
+        <p class="pdesc de">24/7-Monitoring, proaktiver Support, monatliche Berichte — wir sind da, bevor Sie uns brauchen.</p>
+        <p class="pdesc en">24/7 monitoring, proactive support, monthly reports — we're there before you need us.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="sec-full" style="background:var(--bg)">
+  <div class="container sec" style="padding-top:0;padding-bottom:0">
+    <div class="eyebrow r de">Praxisinhaber über BRANI+</div>
+    <div class="eyebrow r en">Practice owners about BRANI+</div>
+    <h2 class="h2 r d1"><span class="de">Vertrauen,<br>das spricht.</span><span class="en">Trust<br>that speaks.</span></h2>
+    <div class="tg">
+      <div class="tc r d1">
+        <div class="tc-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="tc-q de">Seit BRANI+ unsere IT übernommen hat, gab es keinen einzigen Ausfall. Die NIS2-Umsetzung lief in drei Wochen — reibungslos, ohne dass wir einen Tag schließen mussten.</p>
+        <p class="tc-q en">Since BRANI+ took over our IT, there hasn't been a single outage. NIS2 implementation was done in three weeks — seamlessly, without closing for a single day.</p>
+        <div class="tc-author"><div class="tc-av">MH</div><div><p class="tc-name">Dr. med. M. Hoffmann</p><p class="tc-role de">Allgemeinmedizin, München</p><p class="tc-role en">General Practice, Munich</p></div></div>
+      </div>
+      <div class="tc r d2">
+        <div class="tc-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="tc-q de">Das Online-Buchungssystem hat unser Telefon-Aufkommen um 40% reduziert. Patienten buchen selbst — wir haben wieder Zeit für das Wesentliche.</p>
+        <p class="tc-q en">The online booking system reduced our phone volume by 40%. Patients book themselves — we have time again for what really matters.</p>
+        <div class="tc-author"><div class="tc-av">SK</div><div><p class="tc-name">Dr. S. Keller</p><p class="tc-role de">Zahnarztpraxis, Frankfurt</p><p class="tc-role en">Dental Practice, Frankfurt</p></div></div>
+      </div>
+      <div class="tc r d3">
+        <div class="tc-stars"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <p class="tc-q de">DSGVO hat uns schlaflose Nächte bereitet. BRANI+ hat alles in drei Wochen gelöst — technisch, rechtlich, vollständig. Absolut empfehlenswert.</p>
+        <p class="tc-q en">GDPR gave us sleepless nights. BRANI+ resolved everything in three weeks — technically, legally, completely. Absolutely recommended.</p>
+        <div class="tc-author"><div class="tc-av">RW</div><div><p class="tc-name">Dr. R. Wagner</p><p class="tc-role de">Internist, Hamburg</p><p class="tc-role en">Internist, Hamburg</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="sec-full" style="background:var(--bg2);border-top:1px solid var(--b)">
+  <div class="container sec" style="padding-top:0;padding-bottom:0">
+    <div style="text-align:center;margin-bottom:0">
+      <div class="eyebrow r" style="justify-content:center"><span class="de">Häufige Fragen</span><span class="en">FAQ</span></div>
+      <h2 class="h2 r d1"><span class="de">Ihre Fragen.<br>Klare Antworten.</span><span class="en">Your questions.<br>Clear answers.</span></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="fi r"><button class="ft" onclick="faq(this)"><span class="fq de">Was kostet die Erstberatung?</span><span class="fq en">What does the initial consultation cost?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Die Erstberatung ist vollständig kostenlos und unverbindlich. Wir analysieren Ihre IT-Situation und zeigen konkrete Schritte — ohne versteckte Kosten.</p><p class="fa en">The initial consultation is completely free and non-binding. We analyze your IT situation and show concrete steps — without hidden costs.</p></div></div>
+      <div class="fi r d1"><button class="ft" onclick="faq(this)"><span class="fq de">Muss ich während der Umstellung schließen?</span><span class="fq en">Must I close during the transition?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Nein. Alle Implementierungen erfolgen außerhalb der Sprechzeiten. Ihr Praxisbetrieb läuft ohne Unterbrechung weiter.</p><p class="fa en">No. All implementations happen outside office hours. Your practice operations continue without interruption.</p></div></div>
+      <div class="fi r d2"><button class="ft" onclick="faq(this)"><span class="fq de">Gilt NIS2 auch für kleine Praxen?</span><span class="fq en">Does NIS2 apply to small practices?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Ja. Arztpraxen als kritische Gesundheitsinfrastruktur fallen unter NIS2 — unabhängig von der Größe. Im Erstgespräch klären wir Ihre genaue Pflicht.</p><p class="fa en">Yes. Medical practices as critical health infrastructure fall under NIS2 — regardless of size. We clarify your exact obligations in the first meeting.</p></div></div>
+      <div class="fi r d3"><button class="ft" onclick="faq(this)"><span class="fq de">Wie schnell reagieren Sie bei Problemen?</span><span class="fq en">How quickly do you respond to problems?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Garantierte Reaktionszeit unter 4 Stunden. Bei kritischen Systemen stehen wir 24/7 zur Verfügung.</p><p class="fa en">Guaranteed response time under 4 hours. For critical systems we're available 24/7.</p></div></div>
+      <div class="fi r d4"><button class="ft" onclick="faq(this)"><span class="fq de">Arbeiten Sie mit unserem PVS?</span><span class="fq en">Do you work with our PMS?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Ja. Wir sind mit allen gängigen Praxisverwaltungssystemen kompatibel und integrieren nahtlos in Ihre bestehende Infrastruktur.</p><p class="fa en">Yes. We're compatible with all common practice management systems and integrate seamlessly into your existing infrastructure.</p></div></div>
+      <div class="fi r d5"><button class="ft" onclick="faq(this)"><span class="fq de">Gibt es Vertragsbindungen?</span><span class="fq en">Are there contract commitments?</span><span class="fi-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></button><div class="fb"><p class="fa de">Nein. Monatlich kündbar. Wir behalten Sie als Kunden, weil wir gut sind — nicht wegen Kündigungsfristen.</p><p class="fa en">No. Cancel monthly. We keep you as a client because we're good — not because of cancellation periods.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div id="contact" class="sec-full" style="background:var(--bg)">
+  <div class="container sec" style="padding-top:0;padding-bottom:0">
+    <div class="cta-wrap r">
+      <h2 class="cta-h2">
+        <span class="de">Ihre erste Schutzmaßnahme<br>dauert 15 Minuten.</span>
+        <span class="en">Your first security measure<br>takes 15 minutes.</span>
+      </h2>
+      <p class="cta-sub de">Kostenloses Sicherheits-Audit. Direkt. Konkret. Hilfreich.</p>
+      <p class="cta-sub en">Free security audit. Direct. Concrete. Helpful.</p>
+      <div class="cta-trust">
+        <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="de">Kostenlos & unverbindlich</span><span class="en">Free & non-binding</span></span>
+        <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="de">Kein Vertrag nötig</span><span class="en">No contract required</span></span>
+        <span><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="de">Antwort in 24h</span><span class="en">Response within 24h</span></span>
+      </div>
+      <div class="cta-btns">
+        <div class="magnetic">
+          <a href="mailto:ciricb1998@gmail.com" class="btn btn-blue" style="font-size:18px;padding:20px 44px">
+            <span class="de">Kostenloses Audit buchen</span><span class="en">Book Free Audit</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="magnetic">
+          <a href="mailto:ciricb1998@gmail.com" class="btn btn-ghost" style="font-size:18px;padding:20px 44px">
+            <span class="de">E-Mail schreiben</span><span class="en">Send an email</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+      <span class="footer-logo-wrap">
+        <img src="logo_transparent.png" class="footer-logo"
+             alt="BRANI+"
+             onerror="this.parentElement.style.display='none'">
+      </span>
+      <p class="footer-copy de">© 2026 BRANI+ Digitale Lösungen — IT & Cybersecurity für Arztpraxen</p>
+      <p class="footer-copy en">© 2026 BRANI+ Digital Solutions — IT & Cybersecurity for Medical Practices</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#" class="de">Impressum</a><a href="#" class="en">Imprint</a></li>
+      <li><a href="#" class="de">Datenschutz</a><a href="#" class="en">Privacy</a></li>
+      <li><a href="#contact" class="de">Kontakt</a><a href="#contact" class="en">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cc=document.getElementById('cc');
+let ccShown=false;
+document.addEventListener('mousemove',e=>{
+  cc.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
+  if(!ccShown){ccShown=true;cc.style.opacity='1';}
+});
+document.addEventListener('mouseleave',()=>{cc.style.opacity='0';});
+document.addEventListener('mouseenter',()=>{if(ccShown)cc.style.opacity='1';});
+
+/* ── CANVAS PARTICLE NETWORK ── */
+(function(){
+  const canvas=document.getElementById('canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[];
+  const MOBILE=window.innerWidth<768;
+  const N=MOBILE?45:90;
+  const MAX_DIST=MOBILE?120:160;
+
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',()=>{resize();init()});
+
+  function Node(){
+    this.x=Math.random()*W;this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.35;this.vy=(Math.random()-.5)*.35;
+    this.r=Math.random()*2+1;
+    this.pulse=Math.random()<.12;
+    this.phase=Math.random()*Math.PI*2;
+  }
+  function init(){nodes=[];for(let i=0;i<N;i++)nodes.push(new Node())}
+  init();
+
+  function getAccentRgb(){
+    const t=document.documentElement.getAttribute('data-theme');
+    return t==='light'?'26,112,240':'26,112,240';
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const ar=getAccentRgb();
+    const t=Date.now()*.001;
+
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+    });
+
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<MAX_DIST){
+          const alpha=(.8-(d/MAX_DIST))*.18;
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(${ar},${alpha})`;
+          ctx.lineWidth=.8;
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    nodes.forEach(n=>{
+      let alpha=.55;
+      let radius=n.r;
+      if(n.pulse){
+        const p=Math.sin(t*2+n.phase);
+        alpha=.35+p*.3;
+        radius=n.r+(p+1)*1.5;
+        // outer ring
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,radius+6,0,Math.PI*2);
+        ctx.strokeStyle=`rgba(${ar},${(p+1)*.06})`;
+        ctx.lineWidth=1;
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,radius,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${ar},${alpha})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── TYPEWRITER ── */
+(function(){
+  const el=document.getElementById('tw');
+  const lang=()=>document.documentElement.getAttribute('data-lang');
+  const phrases={
+    de:['Digital.','Vernetzt.','Geschützt.','Menschlich.','Zukunftssicher.'],
+    en:['Digital.','Connected.','Protected.','Human.','Future-proof.']
+  };
+  let pi=0,ci=0,deleting=false,wait=0;
+  function tick(){
+    const list=phrases[lang()]||phrases.de;
+    const target=list[pi%list.length];
+    if(wait>0){wait--;setTimeout(tick,50);return}
+    if(!deleting){
+      el.textContent=target.slice(0,ci+1);ci++;
+      if(ci>=target.length){deleting=true;wait=40}
+    } else {
+      el.textContent=target.slice(0,ci-1);ci--;
+      if(ci<=0){deleting=false;pi=(pi+1)%list.length;wait=8}
+    }
+    setTimeout(tick,deleting?45:90);
+  }
+  setTimeout(tick,1200);
+})();
+
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.08,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.hero .r').forEach(el=>el.classList.add('in')),80);
+
+/* ── STAT COUNTERS ── */
+(function(){
+  const statEls=document.querySelectorAll('.stat-num[data-target]');
+  const sio=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target;
+      if(el.dataset.static){return}
+      const target=+el.dataset.target;
+      const prefix=el.dataset.prefix||'';
+      const suffix=el.dataset.suffix||'';
+      if(target===0&&suffix===''){return}
+      let cur=0;const dur=1600;const step=16;
+      const inc=target/(dur/step);
+      const t=setInterval(()=>{
+        cur=Math.min(cur+inc,target);
+        el.textContent=prefix+Math.round(cur)+suffix;
+        if(cur>=target)clearInterval(t);
+      },step);
+      sio.unobserve(el);
+    });
+  },{threshold:.3});
+  statEls.forEach(el=>sio.observe(el));
+})();
+
+
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.magnetic').forEach(el=>{
+  const btn=el.querySelector('a,button');
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const dx=(e.clientX-cx)*.25,dy=(e.clientY-cy)*.25;
+    btn.style.transform=`translate(${dx}px,${dy}px)`;
+  });
+  el.addEventListener('mouseleave',()=>{btn.style.transform=''});
+});
+
+/* ── THEME ── */
+const thIco=document.getElementById('themeIco');
+const SUN=`<path d="M12 6v2M12 16v2M6 12H4M20 12h-2M7.05 7.05l-1.41-1.41M18.36 18.36l-1.41-1.41M7.05 16.95l-1.41 1.41M18.36 5.64l-1.41 1.41" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/>`;
+const MOON=`<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+thIco.innerHTML=MOON;
+function toggleTheme(){
+  const l=document.documentElement.getAttribute('data-theme')==='light';
+  document.documentElement.setAttribute('data-theme',l?'dark':'light');
+  thIco.innerHTML=l?MOON:SUN;
+}
+
+/* ── LANGUAGE ── */
+function toggleLang(){
+  const de=document.documentElement.getAttribute('data-lang')==='de';
+  document.documentElement.setAttribute('data-lang',de?'en':'de');
+  document.documentElement.setAttribute('lang',de?'en':'de');
+  document.getElementById('langBtn').textContent=de?'DE':'EN';
+}
+
+/* ── FAQ ── */
+function faq(btn){
+  const item=btn.closest('.fi');
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.fi.open').forEach(el=>el.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+/* ── NAV SCROLL ── */
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>{navEl.style.boxShadow=scrollY>40?'0 1px 40px rgba(0,0,0,.2)':'none'},{passive:true});
+
+/* ── FLOAT BTN ── */
+const fb=document.getElementById('floatBtn');
+window.addEventListener('scroll',()=>fb.classList.toggle('show',scrollY>window.innerHeight*.7),{passive:true});
+</script>
+
+<!-- ═══════════════════════════════════════════
+     AI CHAT ASSISTANT WIDGET
+═══════════════════════════════════════════ -->
+<style>
+.chat-btn{
+  position:fixed;bottom:28px;right:28px;z-index:9000;
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--a3));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 32px rgba(var(--ar),.45);
+  transition:transform .3s var(--ease),box-shadow .3s;
+  animation:chatPulse 3.5s ease-in-out infinite;
+}
+@keyframes chatPulse{0%,100%{box-shadow:0 8px 32px rgba(var(--ar),.45),0 0 0 0 rgba(var(--ar),.3)}60%{box-shadow:0 8px 32px rgba(var(--ar),.45),0 0 0 12px rgba(var(--ar),0)}}
+.chat-btn:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(var(--ar),.6);animation:none}
+.chat-btn svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:all .3s}
+.chat-btn.open svg.ico-chat{display:none}
+.chat-btn.open svg.ico-close{display:block}
+.chat-btn svg.ico-close{display:none}
+.chat-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:var(--danger);border:2px solid var(--bg);font-size:10px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;animation:blink 2s infinite}
+
+.chat-panel{
+  position:fixed;bottom:102px;right:28px;z-index:8999;
+  width:360px;max-height:520px;
+  background:var(--bg2);border:1px solid var(--b);border-radius:24px;
+  display:flex;flex-direction:column;
+  box-shadow:0 24px 64px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04);
+  transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;
+  transition:all .35s var(--ease);
+}
+.chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
+
+.chat-head{
+  padding:18px 20px;border-bottom:1px solid var(--b);
+  display:flex;align-items:center;gap:12px;border-radius:24px 24px 0 0;
+  background:linear-gradient(135deg,rgba(var(--ar),.08),rgba(var(--a3r),.06));
+}
+.chat-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--a3));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.chat-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.chat-info h4{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.chat-info p{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:5px}
+.chat-status{width:7px;height:7px;border-radius:50%;background:var(--a2);flex-shrink:0;animation:blink 2s infinite}
+
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;max-height:280px}
+.chat-messages::-webkit-scrollbar{width:3px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+.msg{max-width:85%;font-size:13px;line-height:1.55;border-radius:14px;padding:10px 14px;animation:msgIn .3s var(--ease)}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.bot{background:var(--s);border:1px solid var(--b);border-bottom-left-radius:4px;color:var(--t);align-self:flex-start}
+.msg.user{background:linear-gradient(135deg,var(--a),var(--a3));color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+
+.chat-chips{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-size:12px;font-weight:600;padding:6px 13px;border-radius:100px;
+  background:var(--s);border:1px solid var(--b);color:var(--t2);
+  cursor:pointer;transition:all .2s;font-family:inherit;white-space:nowrap;
+}
+.chip:hover{background:rgba(var(--ar),.12);border-color:rgba(var(--ar),.25);color:var(--a)}
+
+.chat-contact{padding:12px 16px;border-top:1px solid var(--b);display:flex;gap:8px}
+.chat-contact-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px;border-radius:12px;font-size:13px;font-weight:700;
+  text-decoration:none;border:none;cursor:pointer;font-family:inherit;
+  transition:all .25s;
+}
+.chat-contact-btn.call{background:linear-gradient(135deg,var(--a2),#059669);color:#fff}
+.chat-contact-btn.mail{background:var(--s);border:1px solid var(--b);color:var(--t)}
+.chat-contact-btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.chat-contact-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+
+@media(max-width:480px){
+  .chat-panel{width:calc(100vw - 32px);right:16px;bottom:90px}
+  .chat-btn{bottom:16px;right:16px}
+}
+</style>
+
+<!-- Chat Button -->
+<button class="chat-btn" id="chatBtn" onclick="toggleChat()" aria-label="Chat öffnen">
+  <span class="chat-badge">1</span>
+  <svg class="ico-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="ico-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+
+<!-- Chat Panel -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10v1a2 2 0 0 1-2 2h-1"/><path d="M4 12a8 8 0 0 1 8-8"/><circle cx="12" cy="12" r="3"/></svg></div>
+    <div class="chat-info">
+      <h4 class="de">BRANI+ Assistent</h4><h4 class="en">BRANI+ Assistant</h4>
+      <p><span class="chat-status"></span><span class="de">Online — antwortet sofort</span><span class="en">Online — replies instantly</span></p>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot de">Guten Tag! Ich bin der BRANI+ Assistent. Wie kann ich Ihnen helfen? Ich verbinde Sie direkt mit Branislav — persönlich, schnell und unkompliziert.</div>
+    <div class="msg bot en">Hello! I'm the BRANI+ Assistant. How can I help you? I'll connect you directly with Branislav — personal, fast and straightforward.</div>
+  </div>
+  <div class="chat-chips" id="chatChips">
+    <button class="chip de" onclick="sendChip(this,'Preise anfragen','Gerne! Unsere Preise sind individuell auf Ihre Praxis abgestimmt. Am besten sprechen wir kurz telefonisch — Branislav meldet sich innerhalb von 24 Stunden.')">Preise anfragen</button>
+    <button class="chip en" onclick="sendChip(this,'Ask for pricing','Of course! Our pricing is tailored individually to your practice. Best to have a quick call — Branislav will get back to you within 24 hours.')">Ask for pricing</button>
+    <button class="chip de" onclick="sendChip(this,'NIS2 — bin ich betroffen?','Ja — seit Oktober 2024 gilt NIS2 für Arztpraxen als Teil kritischer Infrastruktur. Bußgelder bis 10 Mio. €. Lassen Sie uns das gemeinsam prüfen.')">NIS2 — bin ich betroffen?</button>
+    <button class="chip en" onclick="sendChip(this,'Am I affected by NIS2?','Yes — since October 2024, NIS2 applies to medical practices as part of critical infrastructure. Fines up to €10M. Let us check this together.')">Am I affected by NIS2?</button>
+    <button class="chip de" onclick="sendChip(this,'IT-Analyse anfragen','Sehr gerne! Eine kostenlose IT-Analyse dauert ca. 45 Minuten vor Ort und zeigt Ihnen genau wo Ihre Praxis steht. Kein Vertrag nötig.')">Kostenlose IT-Analyse</button>
+    <button class="chip en" onclick="sendChip(this,'Request IT analysis','Of course! A free IT analysis takes about 45 minutes on site and shows you exactly where your practice stands. No contract needed.')">Free IT analysis</button>
+    <button class="chip de" onclick="sendChip(this,'Gespräch vereinbaren','Perfekt! Rufen Sie direkt an oder schreiben Sie eine E-Mail — Branislav antwortet persönlich innerhalb von 24 Stunden.')">Gespräch vereinbaren</button>
+    <button class="chip en" onclick="sendChip(this,'Schedule a call','Perfect! Call directly or send an email — Branislav responds personally within 24 hours.')">Schedule a call</button>
+  </div>
+  <div class="chat-contact">
+    <a href="tel:+49" class="chat-contact-btn call">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.57a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+      <span class="de">Anrufen</span><span class="en">Call now</span>
+    </a>
+    <a href="mailto:ciricb1998@gmail.com" class="chat-contact-btn mail">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="de">E-Mail</span><span class="en">Email</span>
+    </a>
+  </div>
+</div>
+
+<script>
+function toggleChat(){
+  const btn=document.getElementById('chatBtn');
+  const panel=document.getElementById('chatPanel');
+  const badge=btn.querySelector('.chat-badge');
+  btn.classList.toggle('open');
+  panel.classList.toggle('open');
+  if(badge)badge.style.display='none';
+}
+function sendChip(el,question,answer){
+  const msgs=document.getElementById('chatMessages');
+  const chips=document.getElementById('chatChips');
+  const lang=document.documentElement.getAttribute('data-lang');
+  // Add user message
+  const um=document.createElement('div');
+  um.className='msg user';um.textContent=question;msgs.appendChild(um);
+  // Hide chips
+  chips.style.display='none';
+  // Add bot response with delay
+  setTimeout(()=>{
+    const bm=document.createElement('div');
+    bm.className='msg bot';bm.textContent=answer;msgs.appendChild(bm);
+    msgs.scrollTop=msgs.scrollHeight;
+    // Show follow-up
+    setTimeout(()=>{
+      const fu=document.createElement('div');
+      fu.className='msg bot';
+      fu.textContent=lang==='de'
+        ?'Nutzen Sie einfach die Schaltflächen unten um direkt Kontakt aufzunehmen. Branislav antwortet persönlich.'
+        :'Just use the buttons below to get in touch directly. Branislav responds personally.';
+      msgs.appendChild(fu);msgs.scrollTop=msgs.scrollHeight;
+    },1200);
+  },700);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+</script>
+</body>
+</html>

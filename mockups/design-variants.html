@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRANI+ Design Variants</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    padding: 60px 40px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+  }
+
+  .variants {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .variant-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .variant-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    font-weight: 600;
+  }
+
+  .variant-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .variant-desc {
+    font-size: 11px;
+    color: #444;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 240px;
+  }
+
+  /* Phone frame */
+  .phone {
+    width: 320px;
+    height: 680px;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+  }
+
+  /* ─────────────────────────────────────────────
+     VARIANT A — OBSIDIAN MONO
+  ───────────────────────────────────────────── */
+  .phone-a {
+    background: #080808;
+  }
+
+  .a-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .a-header {
+    padding: 44px 24px 20px;
+    border-bottom: 0.5px solid #1a1a1a;
+  }
+
+  .a-greeting {
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .a-name {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    color: #fff;
+  }
+
+  .a-date {
+    font-size: 11px;
+    color: #2a2a2a;
+    margin-top: 2px;
+  }
+
+  .a-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Stats row - 3 rings */
+  .a-stats {
+    display: flex;
+    gap: 12px;
+  }
+
+  .a-stat {
+    flex: 1;
+    background: #111;
+    border: 0.5px solid #1c1c1c;
+    border-radius: 16px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ring-wrap {
+    position: relative;
+    width: 44px;
+    height: 44px;
+  }
+
+  .ring-wrap svg {
+    transform: rotate(-90deg);
+  }
+
+  .ring-val {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .a-stat-label {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: #2a2a2a;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Today card */
+  .a-today {
+    background: #0e0e0e;
+    border: 0.5px solid #1c1c1c;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .a-today-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid #161616;
+  }
+
+  .a-today-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .a-badge {
+    font-size: 9px;
+    font-weight: 700;
+    color: #3b82f6;
+    background: rgba(59,130,246,0.08);
+    border: 0.5px solid rgba(59,130,246,0.2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    letter-spacing: 0.5px;
+  }
+
+  .a-task {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 0.5px solid #111;
+  }
+
+  .a-task:last-child { border-bottom: none; }
+
+  .a-check-done {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    background: #3b82f6;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .a-check-done svg { width: 10px; height: 8px; }
+
+  .a-check-empty {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1px solid #222;
+    flex-shrink: 0;
+  }
+
+  .a-task-text {
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .a-task-text.done {
+    color: #2a2a2a;
+    text-decoration: line-through;
+  }
+
+  /* Charts row */
+  .a-charts {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .a-chart {
+    flex: 1;
+    background: #0e0e0e;
+    border: 0.5px solid #1c1c1c;
+    border-radius: 16px;
+    padding: 14px 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .a-chart-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #2a2a2a;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .a-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    flex: 1;
+  }
+
+  .a-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    min-height: 4px;
+  }
+
+  /* Bottom nav */
+  .a-nav {
+    padding: 12px 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid #141414;
+    background: #080808;
+  }
+
+  .a-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .a-nav-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .a-nav-icon.active {
+    background: rgba(59,130,246,0.12);
+  }
+
+  .a-nav-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #3b82f6;
+  }
+
+  .a-nav-label {
+    font-size: 8px;
+    color: #222;
+    letter-spacing: 0.3px;
+  }
+
+  .a-nav-label.active { color: #3b82f6; }
+
+  .a-ai-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.25);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; top: -10px;
+  }
+
+
+  /* ─────────────────────────────────────────────
+     VARIANT B — SLATE PRO
+  ───────────────────────────────────────────── */
+  .phone-b {
+    background: #0D1623;
+  }
+
+  .b-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .b-header {
+    padding: 44px 22px 18px;
+    background: linear-gradient(180deg, #0d1623 0%, #0d1623 100%);
+  }
+
+  .b-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .b-greeting {
+    font-size: 11px;
+    color: #2d4a6e;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .b-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #e2e8f0;
+  }
+
+  .b-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff;
+    border: 2px solid rgba(59,130,246,0.3);
+  }
+
+  /* Big ring stats */
+  .b-stats {
+    display: flex;
+    gap: 10px;
+  }
+
+  .b-stat {
+    flex: 1;
+    background: #111e2e;
+    border: 0.5px solid #1a2d45;
+    border-radius: 14px;
+    padding: 14px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .b-ring-wrap {
+    position: relative;
+    width: 52px; height: 52px;
+  }
+
+  .b-ring-val {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .b-ring-num {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .b-ring-unit {
+    font-size: 8px;
+    color: #2d4a6e;
+    font-weight: 600;
+  }
+
+  .b-stat-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #2d4a6e;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .b-content {
+    flex: 1;
+    padding: 16px 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  .b-card {
+    background: #111e2e;
+    border: 0.5px solid #1a2d45;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .b-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 16px;
+    border-bottom: 0.5px solid #152035;
+    border-left: 2px solid #3b82f6;
+  }
+
+  .b-card-title {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #3b82f6;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .b-prog-small {
+    font-size: 10px;
+    color: #2d4a6e;
+    font-weight: 600;
+  }
+
+  .b-task {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 0.5px solid #0f1a29;
+  }
+
+  .b-task:last-child { border-bottom: none; }
+
+  .b-check-done {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #3b82f6;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .b-check-empty {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid #1a2d45;
+    flex-shrink: 0;
+  }
+
+  .b-task-text { font-size: 12px; color: #8ba3c0; flex: 1; }
+  .b-task-text.done { color: #2d4a6e; text-decoration: line-through; }
+
+  /* Progress bar */
+  .b-prog-bar {
+    height: 3px;
+    background: #0f1a29;
+    border-radius: 2px;
+    margin: 0 16px 12px;
+    overflow: hidden;
+  }
+  .b-prog-fill {
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 2px;
+  }
+
+  /* Quick access */
+  .b-quick {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .b-quick-item {
+    background: #111e2e;
+    border: 0.5px solid #1a2d45;
+    border-radius: 14px;
+    padding: 12px 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .b-quick-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  .b-quick-label {
+    font-size: 9px;
+    color: #2d4a6e;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  /* Nav */
+  .b-nav {
+    padding: 12px 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid #111e2e;
+    background: #0D1623;
+    margin-top: auto;
+  }
+
+  .b-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .b-nav-icon {
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .b-nav-icon.active { background: rgba(59,130,246,0.12); }
+
+  .b-nav-label { font-size: 8px; color: #1e3352; letter-spacing: 0.2px; }
+  .b-nav-label.active { color: #3b82f6; font-weight: 700; }
+
+  .b-ai-btn {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(29,78,216,0.15));
+    border: 1px solid rgba(59,130,246,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; top: -12px;
+    box-shadow: 0 0 20px rgba(59,130,246,0.2);
+  }
+
+  /* ─────────────────────────────────────────────
+     VARIANT C — CARBON BOLD
+  ───────────────────────────────────────────── */
+  .phone-c {
+    background: #111111;
+  }
+
+  .c-screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Hero header block */
+  .c-hero {
+    background: #1a1a1a;
+    padding: 44px 22px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .c-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(249,115,22,0.08);
+  }
+
+  .c-hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .c-greeting { font-size: 11px; color: #333; letter-spacing: 1px; font-weight: 500; margin-bottom: 2px; }
+  .c-name { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.8px; }
+
+  .c-accent-ring {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: rgba(249,115,22,0.1);
+    border: 1.5px solid rgba(249,115,22,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+
+  .c-ring-num { font-size: 16px; font-weight: 800; color: #f97316; line-height: 1; }
+  .c-ring-unit { font-size: 7px; color: #f97316; opacity: 0.6; }
+
+  /* 2 col stat cards */
+  .c-stat-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .c-stat-card {
+    flex: 1;
+    background: #171717;
+    border: 0.5px solid #222;
+    border-radius: 14px;
+    padding: 14px 14px 12px;
+  }
+
+  .c-stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .c-stat-label { font-size: 9px; letter-spacing: 1.5px; color: #333; text-transform: uppercase; font-weight: 700; }
+
+  .c-stat-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+
+  .c-stat-val { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .c-stat-sub { font-size: 9px; color: #2a2a2a; margin-top: 1px; }
+
+  /* Mini ring in stat */
+  .c-mini-ring {
+    position: relative; width: 40px; height: 40px;
+    margin: 0 auto;
+  }
+
+  .c-mini-ring-val {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+  }
+
+  /* Content */
+  .c-content {
+    flex: 1;
+    padding: 14px 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  .c-section-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #2a2a2a;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Task list - bold blocks */
+  .c-tasks { display: flex; flex-direction: column; gap: 6px; }
+
+  .c-task {
+    background: #161616;
+    border: 0.5px solid #1f1f1f;
+    border-radius: 12px;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .c-task::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+
+  .c-task.done::before { background: #f97316; }
+  .c-task.pending::before { background: #1f1f1f; }
+
+  .c-task-check {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .c-task-check.done { background: #f97316; }
+  .c-task-check.pending { border: 1.5px solid #222; }
+
+  .c-task-text { font-size: 12px; font-weight: 500; }
+  .c-task-text.done { color: #2a2a2a; text-decoration: line-through; }
+  .c-task-text.pending { color: #ccc; }
+
+  /* Recovery card */
+  .c-recovery {
+    background: #161616;
+    border: 0.5px solid #222;
+    border-radius: 14px;
+    padding: 13px 14px;
+  }
+
+  .c-rec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .c-rec-title { font-size: 9px; letter-spacing: 1.5px; color: #333; text-transform: uppercase; font-weight: 700; }
+  .c-rec-phase { font-size: 9px; color: #f97316; font-weight: 700; }
+
+  .c-rec-bar {
+    height: 4px;
+    background: #1f1f1f;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .c-rec-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #fb923c);
+    border-radius: 2px;
+  }
+
+  .c-rec-label { font-size: 10px; color: #333; }
+
+  /* Nav */
+  .c-nav {
+    padding: 12px 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.5px solid #181818;
+    background: #111;
+    margin-top: auto;
+  }
+
+  .c-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .c-nav-icon {
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .c-nav-icon.active { background: rgba(249,115,22,0.12); }
+
+  .c-nav-label { font-size: 8px; color: #222; letter-spacing: 0.2px; }
+  .c-nav-label.active { color: #f97316; font-weight: 700; }
+
+  .c-ai-btn {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; top: -12px;
+  }
+
+  /* SVG icons inline */
+  svg.icon { flex-shrink: 0; }
+
+</style>
+</head>
+<body>
+
+<h1>BRANI+ · Design Varianten · 2026</h1>
+
+<div class="variants">
+
+  <!-- ══════════════════ VARIANT A ══════════════════ -->
+  <div class="variant-wrap">
+    <div class="variant-label">Variante A</div>
+    <div class="variant-name">OBSIDIAN MONO</div>
+
+    <div class="phone phone-a">
+      <div class="a-screen">
+
+        <div class="a-header">
+          <div class="a-greeting">Guten Morgen</div>
+          <div class="a-name">Branislav</div>
+          <div class="a-date">So. 07. Juni 2026</div>
+        </div>
+
+        <div class="a-content">
+
+          <!-- 3 ring stats -->
+          <div class="a-stats">
+            <div class="a-stat">
+              <div class="ring-wrap">
+                <svg width="44" height="44" viewBox="0 0 44 44">
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#3b82f6" stroke-width="4"
+                    stroke-dasharray="107" stroke-dashoffset="32" stroke-linecap="round"/>
+                </svg>
+                <div class="ring-val" style="color:#3b82f6">12</div>
+              </div>
+              <div class="a-stat-label">Streak</div>
+            </div>
+            <div class="a-stat">
+              <div class="ring-wrap">
+                <svg width="44" height="44" viewBox="0 0 44 44">
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#3b82f6" stroke-width="4"
+                    stroke-dasharray="107" stroke-dashoffset="36" stroke-linecap="round"/>
+                </svg>
+                <div class="ring-val" style="color:#3b82f6; font-size:11px">2/3</div>
+              </div>
+              <div class="a-stat-label">Heute</div>
+            </div>
+            <div class="a-stat">
+              <div class="ring-wrap">
+                <svg width="44" height="44" viewBox="0 0 44 44">
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+                  <circle cx="22" cy="22" r="17" fill="none" stroke="#3b82f6" stroke-width="4"
+                    stroke-dasharray="107" stroke-dashoffset="75" stroke-linecap="round"/>
+                </svg>
+                <div class="ring-val" style="color:#3b82f6; font-size:10px">1W</div>
+              </div>
+              <div class="a-stat-label">Aktiv</div>
+            </div>
+          </div>
+
+          <!-- Today tasks -->
+          <div class="a-today">
+            <div class="a-today-header">
+              <div class="a-today-title">Prioritäten</div>
+              <div class="a-badge">2 / 3</div>
+            </div>
+            <div class="a-task">
+              <div class="a-check-done">
+                <svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="a-task-text done">Physiotherapie</span>
+            </div>
+            <div class="a-task">
+              <div class="a-check-done">
+                <svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="a-task-text done">2L Wasser</span>
+            </div>
+            <div class="a-task">
+              <div class="a-check-empty"></div>
+              <span class="a-task-text">Trainingsplan</span>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="a-charts">
+            <div class="a-chart">
+              <div class="a-chart-label">Schlaf</div>
+              <div class="a-bars">
+                <div class="a-bar" style="height:55%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:80%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:60%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:90%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:45%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:70%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:85%;background:#3b82f6"></div>
+              </div>
+            </div>
+            <div class="a-chart">
+              <div class="a-chart-label">Energie</div>
+              <div class="a-bars">
+                <div class="a-bar" style="height:40%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:65%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:75%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:50%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:88%;background:#3b82f6"></div>
+                <div class="a-bar" style="height:60%;background:#1a2a3a"></div>
+                <div class="a-bar" style="height:72%;background:#3b82f6"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Nav -->
+        <div class="a-nav">
+          <div class="a-nav-item">
+            <div class="a-nav-icon active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="a-nav-dot"></div>
+            <div class="a-nav-label active">Home</div>
+          </div>
+          <div class="a-nav-item">
+            <div class="a-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+              </svg>
+            </div>
+            <div class="a-nav-label">Planer</div>
+          </div>
+          <div class="a-nav-item">
+            <div class="a-ai-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round">
+                <path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 8v4l3 3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="a-nav-item">
+            <div class="a-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <div class="a-nav-label">Ziele</div>
+          </div>
+          <div class="a-nav-item">
+            <div class="a-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            </div>
+            <div class="a-nav-label">Mehr</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="variant-desc">
+      Čisto crna · samo plava boja<br>
+      Maksimalni kontrast · nema blur<br>
+      <span style="color:#3b82f6">Linear / Vercel osjećaj</span>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════ VARIANT B ══════════════════ -->
+  <div class="variant-wrap">
+    <div class="variant-label">Variante B</div>
+    <div class="variant-name">SLATE PRO</div>
+
+    <div class="phone phone-b">
+      <div class="b-screen">
+
+        <div class="b-header">
+          <div class="b-top">
+            <div>
+              <div class="b-greeting">Guten Morgen</div>
+              <div class="b-name">Branislav</div>
+            </div>
+            <div class="b-avatar">B</div>
+          </div>
+
+          <!-- Ring stats -->
+          <div class="b-stats">
+            <div class="b-stat">
+              <div class="b-ring-wrap">
+                <svg width="52" height="52" viewBox="0 0 52 52">
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#112030" stroke-width="5"/>
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#3b82f6" stroke-width="5"
+                    stroke-dasharray="125.6" stroke-dashoffset="38" stroke-linecap="round" transform="rotate(-90 26 26)"/>
+                </svg>
+                <div class="b-ring-val">
+                  <div class="b-ring-num" style="color:#3b82f6">12</div>
+                  <div class="b-ring-unit">Tage</div>
+                </div>
+              </div>
+              <div class="b-stat-label">Streak</div>
+            </div>
+            <div class="b-stat">
+              <div class="b-ring-wrap">
+                <svg width="52" height="52" viewBox="0 0 52 52">
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#112030" stroke-width="5"/>
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#f97316" stroke-width="5"
+                    stroke-dasharray="125.6" stroke-dashoffset="42" stroke-linecap="round" transform="rotate(-90 26 26)"/>
+                </svg>
+                <div class="b-ring-val">
+                  <div class="b-ring-num" style="color:#f97316; font-size:13px">2/3</div>
+                  <div class="b-ring-unit">Tasks</div>
+                </div>
+              </div>
+              <div class="b-stat-label">Heute</div>
+            </div>
+            <div class="b-stat">
+              <div class="b-ring-wrap">
+                <svg width="52" height="52" viewBox="0 0 52 52">
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#112030" stroke-width="5"/>
+                  <circle cx="26" cy="26" r="20" fill="none" stroke="#22c55e" stroke-width="5"
+                    stroke-dasharray="125.6" stroke-dashoffset="94" stroke-linecap="round" transform="rotate(-90 26 26)"/>
+                </svg>
+                <div class="b-ring-val">
+                  <div class="b-ring-num" style="color:#22c55e; font-size:13px">25%</div>
+                  <div class="b-ring-unit">Juni</div>
+                </div>
+              </div>
+              <div class="b-stat-label">Monat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="b-content">
+
+          <!-- Today card -->
+          <div class="b-card">
+            <div class="b-card-header">
+              <div class="b-card-title">Prioritäten</div>
+              <div class="b-prog-small">2 von 3</div>
+            </div>
+            <div class="b-task">
+              <div class="b-check-done">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="b-task-text done">Physiotherapie</span>
+            </div>
+            <div class="b-task">
+              <div class="b-check-done">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="b-task-text done">2L Wasser</span>
+            </div>
+            <div class="b-task">
+              <div class="b-check-empty"></div>
+              <span class="b-task-text">Trainingsplan</span>
+            </div>
+            <div class="b-prog-bar">
+              <div class="b-prog-fill" style="width:67%"></div>
+            </div>
+          </div>
+
+          <!-- Quick access -->
+          <div class="b-quick">
+            <div class="b-quick-item">
+              <div class="b-quick-icon" style="background:rgba(168,85,247,0.12)">🧠</div>
+              <div class="b-quick-label">AI</div>
+            </div>
+            <div class="b-quick-item">
+              <div class="b-quick-icon" style="background:rgba(34,197,94,0.1)">📊</div>
+              <div class="b-quick-label">Stats</div>
+            </div>
+            <div class="b-quick-item">
+              <div class="b-quick-icon" style="background:rgba(249,115,22,0.1)">🏃</div>
+              <div class="b-quick-label">Reha</div>
+            </div>
+            <div class="b-quick-item">
+              <div class="b-quick-icon" style="background:rgba(59,130,246,0.1)">📋</div>
+              <div class="b-quick-label">Planer</div>
+            </div>
+          </div>
+
+          <!-- Recovery card -->
+          <div class="b-card">
+            <div class="b-card-header" style="border-left-color:#f97316">
+              <div class="b-card-title" style="color:#f97316">Recovery</div>
+              <div class="b-prog-small" style="color:#f97316">Phase 1</div>
+            </div>
+            <div style="padding: 12px 16px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span style="font-size:11px; color:#4a6a8a">Juni · 1 von 25 Tagen</span>
+                <span style="font-size:11px; color:#f97316; font-weight:700">4%</span>
+              </div>
+              <div style="height:3px; background:#112030; border-radius:2px; overflow:hidden;">
+                <div style="height:100%; width:4%; background:linear-gradient(90deg,#f97316,#fb923c); border-radius:2px;"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Nav -->
+        <div class="b-nav">
+          <div class="b-nav-item">
+            <div class="b-nav-icon active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div class="b-nav-label active">Home</div>
+          </div>
+          <div class="b-nav-item">
+            <div class="b-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e3352" stroke-width="2" stroke-linecap="round">
+                <path d="M9 11l3 3L22 4"/>
+              </svg>
+            </div>
+            <div class="b-nav-label">Planer</div>
+          </div>
+          <div class="b-nav-item">
+            <div class="b-ai-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="b-nav-item">
+            <div class="b-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e3352" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div class="b-nav-label">Ziele</div>
+          </div>
+          <div class="b-nav-item">
+            <div class="b-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e3352" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/>
+              </svg>
+            </div>
+            <div class="b-nav-label">Mehr</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="variant-desc">
+      Navy plava baza · 3 boje po sekciji<br>
+      Veliki kružni ring trackeri · premium spacing<br>
+      <span style="color:#3b82f6">Apple Health / Notion osjećaj</span>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════ VARIANT C ══════════════════ -->
+  <div class="variant-wrap">
+    <div class="variant-label">Variante C</div>
+    <div class="variant-name">CARBON BOLD</div>
+
+    <div class="phone phone-c">
+      <div class="c-screen">
+
+        <!-- Hero -->
+        <div class="c-hero">
+          <div class="c-hero-top">
+            <div>
+              <div class="c-greeting">Guten Morgen</div>
+              <div class="c-name">Branislav</div>
+            </div>
+            <div class="c-accent-ring">
+              <div class="c-ring-num">12</div>
+              <div class="c-ring-unit">STREAK</div>
+            </div>
+          </div>
+
+          <!-- 2 col stat cards -->
+          <div class="c-stat-row">
+            <div class="c-stat-card">
+              <div class="c-stat-top">
+                <div class="c-stat-label">Tasks</div>
+                <div class="c-stat-dot" style="background:#f97316"></div>
+              </div>
+              <div class="c-stat-val" style="color:#f97316">2/3</div>
+              <div class="c-stat-sub">Heute erledigt</div>
+            </div>
+            <div class="c-stat-card">
+              <div class="c-stat-top">
+                <div class="c-stat-label">Juni</div>
+                <div class="c-stat-dot" style="background:#3b82f6"></div>
+              </div>
+              <div style="margin: 4px 0 6px;">
+                <div class="c-mini-ring">
+                  <svg width="40" height="40" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="15" fill="none" stroke="#1f1f1f" stroke-width="4"/>
+                    <circle cx="20" cy="20" r="15" fill="none" stroke="#3b82f6" stroke-width="4"
+                      stroke-dasharray="94.2" stroke-dashoffset="90" stroke-linecap="round" transform="rotate(-90 20 20)"/>
+                  </svg>
+                  <div class="c-mini-ring-val" style="color:#3b82f6">4%</div>
+                </div>
+              </div>
+              <div class="c-stat-sub">1 von 25 Tagen</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-content">
+
+          <div class="c-section-label">Prioritäten Heute</div>
+
+          <div class="c-tasks">
+            <div class="c-task done">
+              <div class="c-task-check done">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="c-task-text done">Physiotherapie</span>
+            </div>
+            <div class="c-task done">
+              <div class="c-task-check done">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+                  <polyline points="1 4 3.5 7 9 1"/>
+                </svg>
+              </div>
+              <span class="c-task-text done">2L Wasser</span>
+            </div>
+            <div class="c-task pending">
+              <div class="c-task-check pending"></div>
+              <span class="c-task-text pending">Trainingsplan ausführen</span>
+            </div>
+          </div>
+
+          <div class="c-section-label" style="margin-top:2px">Recovery</div>
+
+          <div class="c-recovery">
+            <div class="c-rec-header">
+              <div class="c-rec-title">Juni Trainingsplan</div>
+              <div class="c-rec-phase">Phase 1 · Heim</div>
+            </div>
+            <div class="c-rec-bar">
+              <div class="c-rec-fill" style="width:4%"></div>
+            </div>
+            <div class="c-rec-label">Heute: Unterkörper A · 95 Min</div>
+          </div>
+
+          <!-- Chart -->
+          <div style="background:#161616; border:0.5px solid #222; border-radius:14px; padding:14px; overflow:hidden;">
+            <div style="font-size:9px; letter-spacing:2px; color:#2a2a2a; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Wöchentlicher Score</div>
+            <div style="display:flex; align-items:flex-end; gap:5px; height:50px;">
+              <div style="flex:1; border-radius:4px 4px 0 0; height:60%; background:#1f1f1f;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:85%; background:#f97316; opacity:0.7;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:45%; background:#1f1f1f;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:90%; background:#f97316; opacity:0.7;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:70%; background:#f97316;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:55%; background:#1f1f1f;"></div>
+              <div style="flex:1; border-radius:4px 4px 0 0; height:80%; background:#f97316;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Nav -->
+        <div class="c-nav">
+          <div class="c-nav-item">
+            <div class="c-nav-icon active">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div class="c-nav-label active">Home</div>
+          </div>
+          <div class="c-nav-item">
+            <div class="c-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <path d="M9 11l3 3L22 4"/>
+              </svg>
+            </div>
+            <div class="c-nav-label">Planer</div>
+          </div>
+          <div class="c-nav-item">
+            <div class="c-ai-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="c-nav-item">
+            <div class="c-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+            </div>
+            <div class="c-nav-label">Ziele</div>
+          </div>
+          <div class="c-nav-item">
+            <div class="c-nav-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/>
+              </svg>
+            </div>
+            <div class="c-nav-label">Mehr</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="variant-desc">
+      Tamno siva · narandžasta dominira<br>
+      Blok kartice · bold brojevi · bar grafikon<br>
+      <span style="color:#f97316">iOS 18 / tvoja narandžasta slika</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Color palettes below -->
+<div style="margin-top:70px; display:flex; gap:60px; justify-content:center; flex-wrap:wrap;">
+  <div style="text-align:center;">
+    <div style="font-size:9px; letter-spacing:2px; color:#333; text-transform:uppercase; margin-bottom:16px;">A · Obsidian Mono</div>
+    <div style="display:flex; gap:8px; justify-content:center;">
+      <div style="width:28px;height:28px;border-radius:8px;background:#080808;border:0.5px solid #222;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#111;border:0.5px solid #222;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#3b82f6;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#fff;"></div>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <div style="font-size:9px; letter-spacing:2px; color:#333; text-transform:uppercase; margin-bottom:16px;">B · Slate Pro</div>
+    <div style="display:flex; gap:8px; justify-content:center;">
+      <div style="width:28px;height:28px;border-radius:8px;background:#0D1623;border:0.5px solid #1a2d45;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#111e2e;border:0.5px solid #1a2d45;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#3b82f6;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#f97316;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#22c55e;"></div>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <div style="font-size:9px; letter-spacing:2px; color:#333; text-transform:uppercase; margin-bottom:16px;">C · Carbon Bold</div>
+    <div style="display:flex; gap:8px; justify-content:center;">
+      <div style="width:28px;height:28px;border-radius:8px;background:#111;border:0.5px solid #222;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#1a1a1a;border:0.5px solid #222;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#f97316;"></div>
+      <div style="width:28px;height:28px;border-radius:8px;background:#3b82f6;"></div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:60px; font-size:10px; color:#222; letter-spacing:2px;">
+  BRANI+ · UI Design Konzept · 2026
+</div>
+
+</body>
+</html>

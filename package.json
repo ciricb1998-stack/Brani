@@ -1,0 +1,29 @@
+{
+  "name": "brani-system",
+  "version": "2.0.0",
+  "description": "BRANI Life & Business Planning System — Premium PWA",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "deploy": "node -e \"require('fs').writeFileSync('public/version.json',JSON.stringify({v:Date.now().toString()}))\" && vite build && vercel --prod --yes --scope brani360agency-5602s-projects"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@supabase/supabase-js": "^2.107.0",
+    "date-fns": "^3.3.1",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
+    "lucide-react": "^1.17.0",
+    "nodemailer": "^8.0.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.6",
+    "vite-plugin-pwa": "^0.19.8",
+    "workbox-window": "^7.1.0"
+  }
+}
