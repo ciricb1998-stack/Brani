@@ -55,6 +55,8 @@ const WART_STATUS = {
   verschoben:  { l:'Verschoben',      c:'#A855F7' },
   abgebrochen: { l:'Abgebrochen',     c:'#EF4444' },
 }
+const TICKET_CATS = ['Hardware','Software','Netzwerk','Drucker','Telefon','Zugang/Login','Server','Sonstiges']
+const TICKET_CHANNELS = [['telefonisch','Telefonisch'],['email','E-Mail'],['vor_ort','Vor Ort'],['remote','Remote'],['intern','Intern']]
 
 const fmt  = iso => iso ? new Date(iso).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}) : '—'
 const fmtT = iso => iso ? new Date(iso).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—'
@@ -373,22 +375,75 @@ function QuickGuide() {
 // ════════════════════════════════════════════════════════════
 // TICKETS
 // ════════════════════════════════════════════════════════════
-function TicketForm({ initial={}, devices, onSave }) {
-  const [f, setF] = useState({ title:'', desc:'', priority:'mittel', status:'open', deviceId:'', assignee:'', resolution:'', notes:'', ...initial })
+function TicketForm({ initial={}, devices: initialDevices, onSave }) {
+  const [f, setF] = useState({ title:'', desc:'', priority:'mittel', status:'open', deviceId:'', assignee:'', melder:'', kategorie:'Hardware', kanal:'telefonisch', arbeitszeit:'', resolution:'', notes:'', ...initial })
   const [photos, setPhotos] = useState(initial.id ? getTicketPhotos(initial.id) : [])
+  const [localDevices, setLocalDevices] = useState(initialDevices)
+  const [showQuickDev, setShowQuickDev] = useState(false)
+  const [qd, setQd] = useState({ name:'', type:'PC/Desktop', rNumber:'', userName:'', location:'' })
   const s = k => v => setF(p=>({...p,[k]:v}))
+
+  function saveQuickDevice() {
+    if (!qd.name.trim() && !qd.rNumber.trim()) return
+    const d = createDevice(qd)
+    setLocalDevices(prev => [d, ...prev])
+    setF(p => ({...p, deviceId: d.id}))
+    setShowQuickDev(false)
+    setQd({ name:'', type:'PC/Desktop', rNumber:'', userName:'', location:'' })
+  }
+
   return (
     <div>
-      <FInput label="Titel" required value={f.title} onChange={s('title')} placeholder="Kurzbeschreibung"/>
-      <FInput label="Beschreibung" value={f.desc} onChange={s('desc')} multiline placeholder="Details..."/>
+      <FInput label="Titel" required value={f.title} onChange={s('title')} placeholder="Kurzbeschreibung des Problems"/>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
+        <FSel label="Kategorie" value={f.kategorie} onChange={s('kategorie')} options={TICKET_CATS.map(c=>[c,c])}/>
+        <FSel label="Kanal" value={f.kanal} onChange={s('kanal')} options={TICKET_CHANNELS}/>
         <FSel label="Priorität" value={f.priority} onChange={s('priority')} options={Object.entries(PRIO).map(([k,v])=>[k,v.l])}/>
         <FSel label="Status" value={f.status} onChange={s('status')} options={Object.entries(STATUS).map(([k,v])=>[k,v.l])}/>
       </div>
-      <FSel label="Gerät" value={f.deviceId} onChange={s('deviceId')} options={[['','— kein Gerät —'],...devices.map(d=>[d.id,`${d.rNumber} — ${d.name||d.type}`])]}/>
-      <FInput label="Bearbeiter" value={f.assignee} onChange={s('assignee')} placeholder="Name"/>
-      {(f.status==='done'||f.status==='escalated') && <FInput label="Lösung" value={f.resolution} onChange={s('resolution')} multiline placeholder="Was wurde getan?"/>}
-      <FInput label="Interne Notizen" value={f.notes} onChange={s('notes')} multiline placeholder="Nur intern..."/>
+      <FInput label="Beschreibung" value={f.desc} onChange={s('desc')} multiline placeholder="Details zum Problem..."/>
+
+      {/* Gerät mit Inline-Erstellung */}
+      <div style={{ marginBottom:11 }}>
+        <div style={{ fontSize:8, fontWeight:700, color:DM, letterSpacing:'1.5px', marginBottom:4, textTransform:'uppercase' }}>Gerät</div>
+        <div style={{ display:'flex', gap:6 }}>
+          <select value={f.deviceId} onChange={e=>s('deviceId')(e.target.value)} style={{ flex:1, background:C2, border:`1px solid ${BR}`, borderRadius:10, color:TX, fontFamily:'inherit', fontSize:13, padding:'10px 12px', outline:'none', appearance:'none' }}>
+            <option value="">— kein Gerät —</option>
+            {localDevices.map(d=><option key={d.id} value={d.id}>{d.rNumber} — {d.name||d.type}</option>)}
+          </select>
+          <button onClick={()=>setShowQuickDev(v=>!v)} style={{ padding:'0 13px', borderRadius:10, background:showQuickDev?A:`${A}15`, border:`1px solid ${A}40`, cursor:'pointer', color:showQuickDev?'#fff':A, fontSize:11, fontWeight:700, flexShrink:0, display:'flex', alignItems:'center', gap:4, whiteSpace:'nowrap' }}>
+            <Plus size={12} weight={PW} color={showQuickDev?'#fff':A}/> Neu
+          </button>
+        </div>
+        {showQuickDev && (
+          <div style={{ marginTop:8, background:'#0f1a0a', border:`1px solid ${A}35`, borderRadius:10, padding:'12px' }}>
+            <div style={{ fontSize:8, fontWeight:700, color:A, letterSpacing:'1.5px', marginBottom:10 }}>NEUES GERÄT ERFASSEN & VERKNÜPFEN</div>
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:8 }}>
+              <FInput label="R-Nummer" value={qd.rNumber} onChange={v=>setQd(p=>({...p,rNumber:v}))} placeholder="R-001"/>
+              <FInput label="Gerätename" value={qd.name} onChange={v=>setQd(p=>({...p,name:v}))} placeholder="PC-Empfang"/>
+              <FSel label="Typ" value={qd.type} onChange={v=>setQd(p=>({...p,type:v}))} options={DEV_TYPES.map(t=>[t,t])}/>
+              <FInput label="Benutzer" value={qd.userName} onChange={v=>setQd(p=>({...p,userName:v}))} placeholder="Dr. Müller"/>
+            </div>
+            <FInput label="Standort" value={qd.location} onChange={v=>setQd(p=>({...p,location:v}))} placeholder="Zimmer 2 / Anmeldung"/>
+            <div style={{ display:'flex', gap:6, marginTop:4 }}>
+              <Btn v="primary" onClick={saveQuickDevice} style={{ flex:1 }}><Plus size={12} weight={PW} color="#fff"/> Anlegen & verknüpfen</Btn>
+              <Btn onClick={()=>setShowQuickDev(false)}>Abbrechen</Btn>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
+        <FInput label="Bearbeiter" value={f.assignee} onChange={s('assignee')} placeholder="Name"/>
+        <FInput label="Melder / Benutzer" value={f.melder} onChange={s('melder')} placeholder="Wer hat gemeldet?"/>
+      </div>
+      {(f.status==='done'||f.status==='escalated') && (
+        <>
+          <FInput label="Lösung / Durchgeführte Maßnahmen" value={f.resolution} onChange={s('resolution')} multiline placeholder="Was wurde getan?"/>
+          <FInput label="Arbeitszeit (Minuten)" type="number" value={f.arbeitszeit} onChange={s('arbeitszeit')} placeholder="z.B. 30"/>
+        </>
+      )}
+      <FInput label="Interne Notizen" value={f.notes} onChange={s('notes')} multiline placeholder="Nur intern sichtbar..."/>
       <Photos photos={photos} onChange={setPhotos}/>
       <Btn v="primary" onClick={()=>{ if(!f.title.trim()) return; onSave(f,photos) }} style={{ width:'100%', marginTop:4 }}>
         <Plus size={13} weight={PW} color="#fff"/> {initial.id?'Änderungen speichern':'Ticket erstellen'}
@@ -409,7 +464,20 @@ function TicketDetail({ ticket, devices, onClose, onEdit }) {
         </div>
         <Pill color={PRIO[ticket.priority]?.c} label={PRIO[ticket.priority]?.l}/> <Pill color={STATUS[ticket.status]?.c} label={STATUS[ticket.status]?.l}/>
       </div>
-      {[['Titel',ticket.title],['Gerät',dev?`${dev.rNumber} — ${dev.name||dev.type}`:null],['Bearbeiter',ticket.assignee],['Beschreibung',ticket.desc],['Lösung',ticket.resolution],['Notizen',ticket.notes],['Erstellt',fmtT(ticket.createdAt)],['Erledigt',fmtT(ticket.resolvedAt)]].filter(([,v])=>v).map(([k,v])=>(
+      {[
+        ['Titel',ticket.title],
+        ['Kategorie',ticket.kategorie],
+        ['Kanal',TICKET_CHANNELS.find(([k])=>k===ticket.kanal)?.[1]||ticket.kanal],
+        ['Gerät',dev?`${dev.rNumber} — ${dev.name||dev.type}`:null],
+        ['Bearbeiter',ticket.assignee],
+        ['Melder',ticket.melder],
+        ['Arbeitszeit',ticket.arbeitszeit?`${ticket.arbeitszeit} Minuten`:null],
+        ['Beschreibung',ticket.desc],
+        ['Lösung',ticket.resolution],
+        ['Notizen',ticket.notes],
+        ['Erstellt',fmtT(ticket.createdAt)],
+        ['Erledigt',fmtT(ticket.resolvedAt)],
+      ].filter(([,v])=>v).map(([k,v])=>(
         <div key={k} style={{ marginBottom:10 }}><div style={{ fontSize:8, fontWeight:700, color:DM, letterSpacing:'1.2px', marginBottom:2 }}>{k.toUpperCase()}</div><div style={{ fontSize:13, color:TX, lineHeight:1.5 }}>{v}</div></div>
       ))}
       {ticket.statusHistory?.length>1 && (
@@ -449,6 +517,7 @@ function TicketsTab({ tickets, devices, reload }) {
 
   const doCreate=(f,p)=>{ const t=createTicket(f); if(p.length) setTicketPhotos(t.id,p); reload(); setShowNew(false) }
   const doUpdate=(f,p)=>{ const resolved=f.status==='done'&&editing.status!=='done'?new Date().toISOString():editing.resolvedAt; updateTicket(editing.id,{...f,resolvedAt:resolved}); setTicketPhotos(editing.id,p); reload(); setEditing(null) }
+  const quickStatus=(t,newStatus)=>{ if(t.status===newStatus) return; const resolved=newStatus==='done'&&t.status!=='done'?new Date().toISOString():t.resolvedAt; updateTicket(t.id,{status:newStatus,resolvedAt:resolved}); reload() }
 
   const fBtn=(active,label,onClick,ac=A)=>(
     <button onClick={onClick} style={{ flexShrink:0, fontSize:8, fontWeight:700, padding:'4px 10px', borderRadius:20, cursor:'pointer', fontFamily:'inherit', background:active?ac:C2, border:`1px solid ${active?ac:BR}`, color:active?'#fff':DM, transition:'all .15s' }}>{label}</button>
@@ -483,7 +552,12 @@ function TicketsTab({ tickets, devices, reload }) {
                   <Pill color={p.c} label={p.l} sm/><Pill color={s.c} label={s.l} sm/><SLABadge ticket={t}/>
                 </div>
                 <div style={{ fontSize:13, fontWeight:700, color:TX, lineHeight:1.3 }}>{t.title}</div>
-                {dev && <div style={{ fontSize:10, color:DM, marginTop:3, display:'flex', alignItems:'center', gap:4 }}><DevTypeIcon type={dev.type} size={10} color={DM}/>{dev.rNumber} · {dev.name||dev.type}</div>}
+                <div style={{ display:'flex', alignItems:'center', gap:5, marginTop:3, flexWrap:'wrap' }}>
+                  {t.kategorie && <span style={{ fontSize:8, fontWeight:700, padding:'2px 7px', borderRadius:12, background:`${A}15`, color:A, border:`1px solid ${A}25` }}>{t.kategorie}</span>}
+                  {t.kanal && <span style={{ fontSize:8, color:DM }}>{TICKET_CHANNELS.find(([k])=>k===t.kanal)?.[1]||t.kanal}</span>}
+                  {dev && <span style={{ fontSize:10, color:DM, display:'flex', alignItems:'center', gap:3 }}><DevTypeIcon type={dev.type} size={10} color={DM}/>{dev.rNumber} · {dev.name||dev.type}</span>}
+                  {t.melder && <span style={{ fontSize:9, color:'#888' }}>von {t.melder}</span>}
+                </div>
               </div>
             </div>
             {t.desc && <div style={{ fontSize:12, color:'#666', lineHeight:1.5, marginBottom:7, paddingLeft:12 }}>{t.desc.slice(0,120)}{t.desc.length>120?'…':''}</div>}
@@ -493,6 +567,12 @@ function TicketsTab({ tickets, devices, reload }) {
                 {photos.length>4 && <div style={{ width:44, height:44, borderRadius:6, background:C2, border:`1px solid ${BR}`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:10, color:DM }}>+{photos.length-4}</div>}
               </div>
             )}
+            {/* Quick Status */}
+            <div style={{ display:'flex', gap:4, paddingLeft:12, marginBottom:7, flexWrap:'wrap' }}>
+              {Object.entries(STATUS).map(([k,v])=>(
+                <button key={k} onClick={()=>quickStatus(t,k)} style={{ fontSize:8, fontWeight:700, padding:'4px 10px', borderRadius:20, cursor:t.status===k?'default':'pointer', fontFamily:'inherit', background:t.status===k?v.c:'transparent', border:`1px solid ${t.status===k?v.c:BR}`, color:t.status===k?'#fff':DM, transition:'all .12s' }}>{v.l}</button>
+              ))}
+            </div>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', paddingLeft:12 }}>
               <span style={{ fontSize:9, color:D2 }}>{fmtT(t.createdAt)}{t.assignee&&` · ${t.assignee}`}</span>
               <div style={{ display:'flex', gap:5 }}>
@@ -769,7 +849,7 @@ function BerichtTab({ tickets, devices, wiki, wartungen }) {
       </div>
       <div style={{ background:C, border:`1px solid ${BR}`, borderRadius:14, padding:'15px 16px', marginBottom:14 }}>
         <div style={{ display:'flex', alignItems:'center', gap:7, marginBottom:8 }}><FileText size={14} weight={PW} color={A}/><span style={{ fontSize:10, fontWeight:800, color:A, letterSpacing:'2px' }}>PDF SERVICEBERICHT</span></div>
-        <div style={{ fontSize:11, color:DM, lineHeight:1.7, marginBottom:12 }}>Vollständiger Bericht mit Tickets, Geräte-Inventar, SLA-Auswertung und BRANI+ Branding.</div>
+        <div style={{ fontSize:11, color:DM, lineHeight:1.7, marginBottom:12 }}>Premium-Bericht mit Cover, KPI-Auswertung, allen Tickets (farbkodiert), Geräte-Inventar, Wartungsplan, Wissensdatenbank und BRANI+ Branding.</div>
         <button onClick={exportPDF} disabled={generating} style={{ width:'100%', padding:'14px', borderRadius:12, background:generating?C2:`linear-gradient(135deg,${A},${A2})`, border:'none', cursor:generating?'not-allowed':'pointer', color:'#fff', fontSize:13, fontWeight:800, letterSpacing:'0.8px', fontFamily:'inherit', boxShadow:generating?'none':`0 4px 20px ${A}35`, transition:'all .2s', display:'flex', alignItems:'center', justifyContent:'center', gap:8 }}>
           <FileText size={15} weight={PW} color="#fff"/>{generating?'Wird generiert…':`PDF exportieren — ${today.toISOString().slice(0,10)}`}
         </button>
@@ -794,37 +874,267 @@ function BerichtTab({ tickets, devices, wiki, wartungen }) {
   )
 }
 
-// ── PDF ───────────────────────────────────────────────────────────────────────
+// ── PREMIUM PDF ───────────────────────────────────────────────────────────────
 function buildPDF(tickets, devices, wiki, wartungen, activity, notes) {
-  const doc=new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' })
-  const W=210, H=297, ML=13, MR=197, CW=184
-  const now=new Date(), ds=now.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}), ts=now.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})
-  const OG=[249,115,22],WH=[255,255,255],DK=[20,20,20],LG=[245,245,245],MG=[130,130,130]
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' })
+  const W=210, H=297, ML=14, MR=196, CW=182
+  const now = new Date()
+  const ds = now.toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'})
+  const dsShort = now.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'})
+  const ts = now.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})
+  const dayName = now.toLocaleDateString('de-DE',{weekday:'long'})
+
+  const OG=[249,115,22], OGD=[180,75,10]
+  const WH=[255,255,255], DK=[22,22,22], MD=[80,80,80]
+  const LG=[245,245,245], MG=[150,150,150]
+  const GR=[34,197,94], BL=[59,130,246], RD=[239,68,68], PR=[168,85,247]
+  const PRIO_BG={ niedrig:[240,255,242], mittel:[255,249,240], hoch:[255,240,240], kritisch:[255,232,232] }
+  const STATUS_CLR={ open:OG, in_progress:BL, done:GR, escalated:RD, waiting:PR }
+  const DEV_CLR={ aktiv:GR, defekt:RD, in_reparatur:OG, ausgemustert:MD }
+  const WART_CLR={ geplant:BL, in_progress:OG, erledigt:GR, verschoben:PR, abgebrochen:RD }
+
   let y=0
-  doc.setFillColor(...OG); doc.rect(0,0,W,26,'F'); doc.setFillColor(8,8,8); doc.rect(0,26,W,11,'F')
-  doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(...WH); doc.text('DT GmbH',ML,13)
-  doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.text('Dans-Tech GmbH — IT Servicebericht',ML,20)
-  doc.setFontSize(7); doc.setTextColor(200,200,200); doc.text(`${ds} · ${ts} Uhr`,MR,13,{align:'right'}); doc.text('BRANI+ · Branislav Ćirić',MR,20,{align:'right'})
-  doc.setTextColor(...OG); doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.text('IT INFRASTRUKTUR · SUPPORT · DOKUMENTATION · SLA-MONITORING',ML,33); y=42
-  const checkPage=n=>{if(y+n>H-14){doc.addPage();doc.setFillColor(...OG);doc.rect(0,0,W,7,'F');doc.setFont('helvetica','bold');doc.setFontSize(6);doc.setTextColor(...WH);doc.text('DT GmbH — Fortsetzung',ML,4.8);y=13}}
-  const secHead=title=>{checkPage(12);doc.setFillColor(...OG);doc.rect(ML,y,CW,7,'F');doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...WH);doc.text(title,ML+3,y+4.8);y+=10}
-  const tHead=cols=>{doc.setFillColor(30,30,30);doc.rect(ML,y,CW,6,'F');doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...LG);let cx=ML;cols.forEach(([l,w])=>{doc.text(l,cx+2,y+4.2);cx+=w});y+=6}
-  const tRow=(cols,data,ri)=>{checkPage(7);doc.setFillColor(ri%2===0?248:255,ri%2===0?248:255,ri%2===0?248:255);doc.rect(ML,y,CW,7,'F');doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(...DK);let cx=ML;cols.forEach(([,w],i)=>{const v=String(data[i]||'—');const mc=Math.floor(w/1.75);doc.text(v.length>mc?v.slice(0,mc-1)+'…':v,cx+2,y+4.8);cx+=w});y+=7}
-  const open=tickets.filter(t=>t.status==='open').length,inP=tickets.filter(t=>t.status==='in_progress').length,done=tickets.filter(t=>t.status==='done').length,breach=tickets.filter(t=>getSLAStatus(t).state==='breached').length
-  const boxes=[['Offen',String(open),OG],['In Bearb.',String(inP),[59,130,246]],['Erledigt',String(done),[34,197,94]],['SLA-Breach',String(breach),[239,68,68]],['Geräte',String(devices.length),[168,85,247]],['Wiki',String(wiki.length),[20,184,166]]]
-  const bw=(CW-10)/3
-  boxes.forEach(([l,v,c],i)=>{const col=i%3,row=Math.floor(i/3),bx=ML+col*(bw+5),by=y+row*22;doc.setFillColor(...c);doc.roundedRect(bx,by,bw,18,2,2,'F');doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(...WH);doc.text(v,bx+bw/2,by+10,{align:'center'});doc.setFontSize(6);doc.setFont('helvetica','normal');doc.text(l,bx+bw/2,by+15,{align:'center'})})
-  y+=50
-  if(notes){checkPage(20);doc.setFillColor(...LG);doc.rect(ML,y,CW,5,'F');doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...DK);doc.text('SCHICHTNOTIZEN',ML+2,y+3.5);y+=5;const ls=doc.splitTextToSize(notes,CW-4);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(60,60,60);ls.forEach(l=>{checkPage(5);doc.text(l,ML+2,y+3.5);y+=4.5});y+=5}
-  secHead(`TICKET-ÜBERSICHT (${tickets.length})`);tHead([['Nr',18],['Titel',52],['Prio',20],['Status',28],['SLA',20],['Gerät',20],['Erstellt',22],['Erledigt',14]])
-  tickets.forEach((t,i)=>{const sla=getSLAStatus(t);const dev=devices.find(d=>d.id===t.deviceId);tRow([['Nr',18],['Titel',52],['Prio',20],['Status',28],['SLA',20],['Gerät',20],['Erstellt',22],['Erledigt',14]],[t.number,t.title,PRIO[t.priority]?.l,STATUS[t.status]?.l,sla.state==='breached'?'VERLETZT':sla.state==='met'?'OK':sla.label,dev?dev.rNumber:'—',fmt(t.createdAt),fmt(t.resolvedAt)],i)})
-  if(!tickets.length){doc.setFillColor(...LG);doc.rect(ML,y,CW,8,'F');doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...MG);doc.text('Keine Tickets',ML+CW/2,y+5,{align:'center'});y+=10}; y+=8
-  secHead(`GERÄTE-INVENTAR (${devices.length})`);tHead([['R-Nr',16],['Name',30],['Typ',22],['Modell',32],['Benutzer',26],['Standort',20],['IP',24],['OS',18],['Status',16]])
-  devices.forEach((d,i)=>tRow([['R-Nr',16],['Name',30],['Typ',22],['Modell',32],['Benutzer',26],['Standort',20],['IP',24],['OS',18],['Status',16]],[d.rNumber,d.name||'—',d.type,d.model||'—',d.userName||'—',d.location||'—',d.ipAddress||'—',d.os||'—',DEV_STATUS[d.status]?.l||d.status],i))
-  if(!devices.length){doc.setFillColor(...LG);doc.rect(ML,y,CW,8,'F');doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...MG);doc.text('Keine Geräte',ML+CW/2,y+5,{align:'center'});y+=10}; y+=8
-  if(wiki.length>0){checkPage(20);secHead(`WISSENSDATENBANK (${wiki.length})`);tHead([['Titel',70],['Kategorie',30],['Verwendet',30],['Erstellt',30]]);wiki.slice(0,15).forEach((e,i)=>tRow([['Titel',70],['Kategorie',30],['Verwendet',30],['Erstellt',30]],[e.title,e.tag,String(e.hits||0),fmt(e.createdAt)],i));y+=6}
-  const pgs=doc.getNumberOfPages();for(let i=1;i<=pgs;i++){doc.setPage(i);doc.setFillColor(25,25,25);doc.rect(0,H-11,W,11,'F');doc.setFillColor(...OG);doc.rect(0,H-11,3,11,'F');doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(...MG);doc.text('BRANI+ · Branislav Ćirić · IT-Dienstleistungen',ML,H-4);doc.text(`Seite ${i} von ${pgs}`,MR,H-4,{align:'right'});doc.setTextColor(...OG);doc.text(`DT GmbH · ${ds}`,W/2,H-4,{align:'center'})}
-  doc.save(`DT-GmbH-${now.toISOString().slice(0,10)}.pdf`)
+
+  function newPage() {
+    doc.addPage()
+    doc.setFillColor(20,20,20); doc.rect(0,0,W,9,'F')
+    doc.setFillColor(...OG); doc.rect(0,0,4,9,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(6); doc.setTextColor(...MG)
+    doc.text('DT GmbH — IT Servicebericht', ML+2, 5.8)
+    doc.text(dsShort, MR, 5.8, {align:'right'})
+    y=15
+  }
+
+  function checkPage(n) { if(y+n>H-15) newPage() }
+
+  function secHead(title, clr=OG) {
+    checkPage(15)
+    doc.setFillColor(...clr); doc.rect(ML,y,CW,9,'F')
+    doc.setFillColor(...WH); doc.rect(ML,y,4,9,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...WH)
+    doc.text(title, ML+9, y+6.2)
+    y+=12
+  }
+
+  function tHead(cols) {
+    doc.setFillColor(28,28,28); doc.rect(ML,y,CW,7,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor(...LG)
+    let cx=ML+2; cols.forEach(([l,w])=>{ doc.text(String(l).toUpperCase(),cx,y+4.8); cx+=w }); y+=7
+  }
+
+  function tRow(cols, data, ri, rowBg=null, colClrs=null) {
+    checkPage(8)
+    const bg=rowBg||(ri%2===0?[248,248,248]:[255,255,255])
+    doc.setFillColor(...bg); doc.rect(ML,y,CW,7.5,'F')
+    doc.setFont('helvetica','normal'); doc.setFontSize(7)
+    let cx=ML+2
+    cols.forEach(([,w],i)=>{
+      const v=String(data[i]??'—')
+      const mc=Math.floor(w/1.85)
+      const txt=v.length>mc?v.slice(0,mc-1)+'…':v
+      const clr=colClrs&&colClrs[i]?colClrs[i]:DK
+      doc.setTextColor(...clr); doc.text(txt,cx,y+5.2)
+      cx+=w
+    })
+    y+=7.5
+  }
+
+  // ── COVER PAGE ─────────────────────────────────────────────────────────────
+  // Orange header
+  doc.setFillColor(...OG); doc.rect(0,0,W,40,'F')
+  doc.setFillColor(...OGD); doc.rect(0,32,W,8,'F')
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(26); doc.setTextColor(...WH)
+  doc.text('Dans-Tech GmbH', ML, 18)
+  doc.setFont('helvetica','normal'); doc.setFontSize(9)
+  doc.text('IT Service Management · Klinikum München', ML, 27)
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...WH)
+  doc.text('IT SERVICEBERICHT', MR, 12, {align:'right'})
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor([255,220,180])
+  doc.text('Branislav Ćirić · BRANI+', MR, 19, {align:'right'})
+  doc.text(`${dayName}, ${ds}`, MR, 26, {align:'right'})
+  doc.text(`${ts} Uhr`, MR, 33, {align:'right'})
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor(...WH)
+  doc.text('IT INFRASTRUKTUR · SUPPORT · DOKUMENTATION · SLA-MONITORING', W/2, 37.5, {align:'center'})
+
+  y=50
+
+  // KPI boxes — 6 in two rows
+  const open=tickets.filter(t=>t.status==='open').length
+  const inP=tickets.filter(t=>t.status==='in_progress').length
+  const done=tickets.filter(t=>t.status==='done').length
+  const breach=tickets.filter(t=>getSLAStatus(t).state==='breached').length
+  const warn=tickets.filter(t=>getSLAStatus(t).state==='warning').length
+  const crit=tickets.filter(t=>t.priority==='kritisch'&&t.status!=='done').length
+
+  const kpis=[['Offen',open,OG],['Aktiv',inP,BL],['Erledigt',done,GR],['SLA Breach',breach,RD],['SLA Warn',warn,[245,158,11]],['Kritisch',crit,[220,38,38]]]
+  const kw=(CW-10)/3
+  kpis.forEach(([l,v,c],i)=>{
+    const col=i%3, row=Math.floor(i/3)
+    const bx=ML+col*(kw+5), by=y+row*26
+    doc.setFillColor(248,248,248); doc.roundedRect(bx,by,kw,22,2,2,'F')
+    doc.setFillColor(...c); doc.rect(bx,by,kw,3,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.setTextColor(...c)
+    doc.text(String(v),bx+kw/2,by+14,{align:'center'})
+    doc.setFontSize(5.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MD)
+    doc.text(l,bx+kw/2,by+19.5,{align:'center'})
+  })
+  y+=58
+
+  // Summary row
+  const sums=[['Geräte',devices.length,PR],['Wiki-Artikel',wiki.length,[20,184,166]],['Wartungen',wartungen.length,[245,158,11]]]
+  const sw=(CW-4)/3
+  sums.forEach(([l,v,c],i)=>{
+    const bx=ML+i*(sw+2)
+    doc.setFillColor(240,240,240); doc.roundedRect(bx,y,sw,14,2,2,'F')
+    doc.setFillColor(...c); doc.rect(bx,y,sw,2.5,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...c)
+    doc.text(String(v),bx+sw/2,y+9,{align:'center'})
+    doc.setFontSize(5.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MD)
+    doc.text(l,bx+sw/2,y+13,{align:'center'})
+  })
+  y+=22
+
+  if(notes&&notes.trim()){
+    const lines=doc.splitTextToSize(notes.trim(),CW-10)
+    const bh=10+lines.length*4.2
+    doc.setFillColor(255,248,240); doc.roundedRect(ML,y,CW,bh,3,3,'F')
+    doc.setFillColor(...OG); doc.rect(ML,y,4,bh,'F')
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...OG)
+    doc.text('SCHICHTNOTIZEN / ÜBERGABE', ML+8, y+5.5)
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(80,60,20)
+    lines.forEach((l,i)=>doc.text(l,ML+8,y+10.5+i*4.2))
+    y+=bh+8
+  }
+
+  // ── TICKETS ────────────────────────────────────────────────────────────────
+  newPage()
+  secHead(`TICKET-ÜBERSICHT (${tickets.length} Tickets)`)
+
+  const tCols=[['Nr',16],['Kat.',20],['Titel',46],['Prio',18],['Status',24],['SLA',18],['Gerät',16],['Melder',18],['Erstellt',16]]
+  tHead(tCols)
+
+  tickets.forEach((t,i)=>{
+    const sla=getSLAStatus(t)
+    const dev=devices.find(d=>d.id===t.deviceId)
+    const slaText=sla.state==='breached'?'VERLETZT':sla.state==='met'||sla.state==='ok'?'OK':'WARNUNG'
+    const slaClr=sla.state==='breached'?RD:sla.state==='warning'?[245,158,11]:GR
+    const statClr=STATUS_CLR[t.status]||OG
+    tRow(tCols,
+      [t.number,t.kategorie||'—',t.title,PRIO[t.priority]?.l||'—',STATUS[t.status]?.l||'—',slaText,dev?dev.rNumber:'—',t.melder||'—',fmt(t.createdAt)],
+      i, PRIO_BG[t.priority]||null,
+      {3:null,4:statClr,5:slaClr}
+    )
+  })
+  if(!tickets.length){doc.setFillColor(245,245,245);doc.rect(ML,y,CW,10,'F');doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(...MG);doc.text('Keine Tickets vorhanden',ML+CW/2,y+6.5,{align:'center'});y+=12}
+  y+=6
+
+  // Open ticket details
+  const openTickets=tickets.filter(t=>t.status!=='done'&&(t.desc||t.resolution))
+  if(openTickets.length){
+    checkPage(20)
+    secHead('OFFENE TICKETS — DETAILANSICHT', BL)
+    openTickets.slice(0,12).forEach(t=>{
+      const p=PRIO[t.priority], pClr=p?.c==='#22C55E'?GR:p?.c==='#EF4444'?RD:p?.c==='#DC2626'?[220,38,38]:OG
+      checkPage(28)
+      doc.setFillColor(25,25,25); doc.rect(ML,y,CW,10,'F')
+      doc.setFillColor(...pClr); doc.rect(ML,y,4,10,'F')
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...WH)
+      const ttl=t.title.length>55?t.title.slice(0,54)+'…':t.title
+      doc.text(`${t.number} — ${ttl}`, ML+8, y+6.5)
+      doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor(...MG)
+      const meta=[PRIO[t.priority]?.l,STATUS[t.status]?.l,t.assignee,fmtT(t.createdAt)].filter(Boolean).join(' · ')
+      doc.text(meta, MR, y+6.5, {align:'right'})
+      y+=12
+      if(t.desc){
+        const dl=doc.splitTextToSize(t.desc.slice(0,400),CW-8)
+        const dh=6+Math.min(dl.length,5)*4.2
+        doc.setFillColor(250,250,250); doc.rect(ML,y,CW,dh,'F')
+        doc.setFont('helvetica','normal'); doc.setFontSize(6.5); doc.setTextColor(60,60,60)
+        dl.slice(0,5).forEach((l,i)=>{checkPage(5);doc.text(l,ML+4,y+4.5+i*4.2)})
+        y+=dh+2
+      }
+      if(t.resolution){
+        const rl=doc.splitTextToSize(t.resolution.slice(0,300),CW-8)
+        const rh=6+Math.min(rl.length,4)*4.2
+        doc.setFillColor(240,255,244); doc.rect(ML,y,CW,rh,'F')
+        doc.setFillColor(...GR); doc.rect(ML,y,3,rh,'F')
+        doc.setFont('helvetica','bold'); doc.setFontSize(6); doc.setTextColor(...GR)
+        doc.text('LÖSUNG', ML+6, y+4)
+        doc.setFont('helvetica','normal'); doc.setTextColor(20,60,20)
+        rl.slice(0,4).forEach((l,i)=>doc.text(l,ML+6,y+4.5+(i+1)*4.2))
+        y+=rh+2
+      }
+      y+=4
+    })
+    y+=4
+  }
+
+  // ── DEVICES ────────────────────────────────────────────────────────────────
+  newPage()
+  secHead(`GERÄTE-INVENTAR (${devices.length} Geräte)`, PR)
+
+  const dCols=[['R-Nr',16],['Name',26],['Typ',20],['Modell',28],['Benutzer',22],['Standort',18],['IP',22],['OS',20],['Status',16],['']]
+  const dColsDef=[['R-Nr',16],['Name',26],['Typ',20],['Modell',28],['Benutzer',22],['Standort',18],['IP',22],['OS',20],['Status',16]]
+  tHead(dColsDef)
+  devices.forEach((d,i)=>{
+    const sc=DEV_CLR[d.status]||MD
+    tRow(dColsDef,[d.rNumber,d.name||'—',d.type,d.model||'—',d.userName||'—',d.location||'—',d.ipAddress||'—',d.os||'—',DEV_STATUS[d.status]?.l||d.status],i,null,{8:sc})
+  })
+  if(!devices.length){doc.setFillColor(245,245,245);doc.rect(ML,y,CW,10,'F');doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(...MG);doc.text('Keine Geräte erfasst',ML+CW/2,y+6.5,{align:'center'});y+=12}
+  y+=6
+
+  // ── WARTUNGEN ──────────────────────────────────────────────────────────────
+  if(wartungen.length){
+    checkPage(30)
+    if(y>220) newPage()
+    secHead(`WARTUNGSPLAN (${wartungen.length} Termine)`,[20,184,166])
+    const wCols=[['Datum',20],['Zeit',12],['Bezeichnung',52],['Typ',24],['Techniker',22],['Dauer',14],['Status',24],['']]
+    const wColsDef=[['Datum',20],['Zeit',12],['Bezeichnung',52],['Typ',24],['Techniker',22],['Dauer',14],['Status',24]]
+    tHead(wColsDef)
+    const today=now.toISOString().slice(0,10)
+    ;[...wartungen].sort((a,b)=>new Date(a.date)-new Date(b.date)).forEach((w,i)=>{
+      const isPast=w.date<today, isToday=w.date===today
+      const rowBg=isToday?[255,251,235]:isPast?[248,248,248]:null
+      const sc=WART_CLR[w.status]||BL
+      tRow(wColsDef,[
+        new Date(w.date+'T12:00').toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'}),
+        w.time||'—',w.title,w.type||'—',w.assignee||'—',w.duration?`${w.duration}m`:'—',WART_STATUS[w.status]?.l||w.status
+      ],i,rowBg,{6:sc})
+    })
+    y+=6
+  }
+
+  // ── WIKI ───────────────────────────────────────────────────────────────────
+  if(wiki.length){
+    checkPage(30)
+    if(y>220) newPage()
+    secHead(`WISSENSDATENBANK (${wiki.length} Artikel)`,[20,184,166])
+    const wkCols=[['Titel',66],['Kategorie',28],['Verwendet',20],['Verifiziert',20],['Erstellt',48]]
+    tHead(wkCols)
+    wiki.slice(0,20).forEach((e,i)=>tRow(wkCols,[e.title,e.tag,String(e.hits||0),e.verified?'✓ Ja':'Nein',fmt(e.createdAt)],i,null,{3:e.verified?GR:MD}))
+    y+=6
+  }
+
+  // ── FOOTER on all pages ────────────────────────────────────────────────────
+  const pgs=doc.getNumberOfPages()
+  for(let i=1;i<=pgs;i++){
+    doc.setPage(i)
+    doc.setFillColor(20,20,20); doc.rect(0,H-13,W,13,'F')
+    doc.setFillColor(...OG); doc.rect(0,H-13,4,13,'F')
+    doc.setFillColor(40,40,40); doc.rect(0,H-13,W,1,'F')
+    doc.setFont('helvetica','normal'); doc.setFontSize(6); doc.setTextColor(...MG)
+    doc.text('BRANI+ · Branislav Ćirić · Dans-Tech GmbH · Klinikum München', ML+2, H-6)
+    doc.text(`Seite ${i} von ${pgs}`, MR, H-6, {align:'right'})
+    doc.setFont('helvetica','bold'); doc.setTextColor(...OG)
+    doc.text(`DT GmbH · IT Servicebericht · ${dsShort}`, W/2, H-6, {align:'center'})
+    doc.setFont('helvetica','normal'); doc.setFontSize(5.5); doc.setTextColor(80,80,80)
+    doc.text('Vertraulich — Nur für interne Verwendung', W/2, H-2, {align:'center'})
+  }
+
+  doc.save(`DT-GmbH-Servicebericht-${now.toISOString().slice(0,10)}.pdf`)
 }
 
 // ── MENTOR VIEW ───────────────────────────────────────────────────────────────
@@ -995,16 +1305,20 @@ export default function DTGmbHScreen() {
         </div>
 
         {/* Tab bar */}
-        <div style={{ display:'flex', overflowX:'auto', scrollbarWidth:'none' }}>
-          {TABS.map(t=>{
-            const active=tab===t.id
-            return (
-              <button key={t.id} onClick={()=>setTab(t.id)} style={{ flexShrink:0, padding:'9px 11px 9px', border:'none', cursor:'pointer', background:'transparent', fontFamily:'inherit', color:active?A:DM, borderBottom:`2px solid ${active?A:'transparent'}`, transition:'all .15s', display:'flex', flexDirection:'column', alignItems:'center', gap:3 }}>
-                <t.Icon size={16} weight={PW} color={active?A:DM}/>
-                <span style={{ fontSize:9, fontWeight:active?800:600, letterSpacing:'0.3px' }}>{t.l}</span>
-              </button>
-            )
-          })}
+        <div style={{ position:'relative' }}>
+          <div style={{ display:'flex', overflowX:'auto', scrollbarWidth:'none', WebkitOverflowScrolling:'touch' }}>
+            {TABS.map(t=>{
+              const active=tab===t.id
+              return (
+                <button key={t.id} onClick={()=>setTab(t.id)} style={{ flexShrink:0, padding:'10px 12px', border:'none', cursor:'pointer', background:active?`${A}10`:'transparent', fontFamily:'inherit', color:active?A:DM, borderBottom:`2px solid ${active?A:'transparent'}`, transition:'all .15s', display:'flex', flexDirection:'column', alignItems:'center', gap:3, minWidth:56 }}>
+                  <t.Icon size={18} weight={PW} color={active?A:DM}/>
+                  <span style={{ fontSize:8, fontWeight:active?800:600, letterSpacing:'0.2px', whiteSpace:'nowrap' }}>{t.l}</span>
+                </button>
+              )
+            })}
+          </div>
+          <div style={{ position:'absolute', right:0, top:0, bottom:0, width:28, background:`linear-gradient(to left,${C},transparent)`, pointerEvents:'none' }}/>
+          <div style={{ position:'absolute', left:0, top:0, bottom:0, width:12, background:`linear-gradient(to right,${C},transparent)`, pointerEvents:'none' }}/>
         </div>
       </div>
 
